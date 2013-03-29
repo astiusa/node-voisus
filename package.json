@@ -1,0 +1,16 @@
+{
+  "name": "node-voisus",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "mocha"
+  },
+  "dependencies" : {
+    "jsonify": "*"
+  },
+  "directories": {
+    "lib": "./src"
+  },
+  "main": "./src/index.js"
+}
