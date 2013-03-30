@@ -3,14 +3,18 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "node ./src/voisus.js",
     "test": "mocha"
   },
   "dependencies" : {
     "jsonify": "*"
   },
+  "devDependencies" : {
+    "mocha": "*",
+    "should": "*"
+  },
   "directories": {
     "lib": "./src"
   },
-  "main": "./src/index.js"
+  "main": "./src/voisus.js"
 }

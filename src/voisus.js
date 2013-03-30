@@ -1,120 +1,97 @@
 var net = require('net');
 var jsonify = require('jsonify');
 
-var Commands = {
-	ping: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "ping",
-		params: {}
-	}, 
-	keep_alive: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "keep_alive",
-		params: {}		
+var API = {
+	Connect: function (host, port) 
+	{
+		var client = net.connect({host: host, port: port}, function() { 
+		  	console.log('client connected');
+		  	client.write(jsonify.stringify(Commands.ping) + "\0");
+		});
+
+		client.on('data', function(data) {
+			console.log(jsonify.parse(data.toString()));
+		 	client.end();
+		});
+
+		client.on('end', function() {
+		  	console.log('client disconnected');
+		});
 	},
-	disconnect: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "disconnect",
-		params: {}		
+	JRPCObj: function (_method, _params, _id)
+	{
+		if (typeof(_method) !== 'string')
+			return null;
+		if (typeof(_params) === 'undefined')
+			_params = {};
+		if (typeof(_id) === 'undefined')
+			_id = null;
+
+		return { jsonrpc: "2.0", id: _id, method: _method, params: _params};
 	},
-	get_operators: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_operators",
-		params: {}		
+	JRPCString: function (jrpcObj)
+	{
+		return jsonify.stringify(jrpcObj) + "\0"; 
 	},
-	get_assets: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_assets",
-		params: {}		
+	Commands: {
+		ping: function (id) {
+			return API.JRPCObj("ping",{},id);
+		}, 
+		keep_alive: function (id) {
+			return API.JRPCObj("keep_alive",{},id);
+		},
+		disconnect: function (id) {
+			return API.JRPCObj("disconnect",{},id);
+		},
+		get_operators: function (id) {
+			return API.JRPCObj("get_operators",{},id);
+		},
+		get_assets: function (id) {
+			return API.JRPCObj("get_assets",{},id);
+		},
+		get_connection: function (id) {
+			return API.JRPCObj("get_connection",{},id);
+		},
+		get_client_name: function (id) {
+			return API.JRPCObj("get_client_name",{},id);
+		},
+		get_curr_role: function (id) {
+			return API.JRPCObj("get_curr_role",{},id);
+		},
+		get_analyzer_results: function (id) {
+			return API.JRPCObj("get_analyzer_results",{},id);
+		},
+		get_asset_nets: function (id) {
+			return API.JRPCObj("get_asset_nets",{},id);
+		},
+		get_network_settings: function (id) {
+			return API.JRPCObj("get_network_settings",{},id);
+		},
+		get_headset_settings: function (id) {
+			return API.JRPCObj("get_headset_settings",{},id);
+		},
+		get_roles: function (id) {
+			return API.JRPCObj("get_roles",{},id);
+		},
+		get_vehicles: function (id) {
+			return API.JRPCObj("get_vehicles",{},id);
+		},
+		get_transmitting: function (id) {
+			return API.JRPCObj("get_transmitting",{},id);
+		},
+		get_versions: function (id) {
+			return API.JRPCObj("get_versions",{},id);
+		},
+		start_analyzer: function (id) {
+			return API.JRPCObj("start_analyzer",{},id);
+		},
+		stop_analyzer: function (id) {
+			return API.JRPCObj("stop_analyzer",{},id);
+		},
+		stop_analyzer: function (id) {
+			return API.JRPCObj("stop_analyzer",{},id);
+		}
 	},
-	get_connection: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_connection",
-		params: {}		
-	},
-	get_client_name: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_client_name",
-		params: {}		
-	},
-	get_curr_role: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_curr_role",
-		params: {}		
-	},
-	get_analyzer_results: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_analyzer_results",
-		params: {}		
-	},
-	get_asset_nets: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_asset_nets",
-		params: {}		
-	},
-	get_network_settings: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_network_settings",
-		params: {}		
-	},
-	get_headset_settings: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_headset_settings",
-		params: {}		
-	},
-	get_roles: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_roles",
-		params: {}		
-	},
-	get_vehicles: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_vehicles",
-		params: {}		
-	},
-	get_transmitting: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_transmitting",
-		params: {}		
-	},
-	get_versions: {
-		jsonrpc: "2.0", 
-		id: null,
-		method: "get_versions",
-		params: {}		
-	}
 }
 
-console.log(jsonify.stringify(Commands));
-
-var client = net.connect({host: "10.26.0.117", port: 51234},
-    function() { //'connect' listener
-  console.log('client connected');
-  client.write(jsonify.stringify(Commands.get_assets) + "\0");
-  client.write(jsonify.stringify(Commands.get_versions) + "\0");
-  client.write(jsonify.stringify(Commands.get_network_settings) + "\0");
-});
-
-client.on('data', function(data) {
-  console.log(jsonify.parse(data.toString()));
-  client.end();
-});
-
-client.on('end', function() {
-  console.log('client disconnected');
-});
+module.exports = API;
