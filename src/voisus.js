@@ -37,6 +37,9 @@ var API = {
 		ping: function (id) {
 			return API.JRPCObj("ping",{},id);
 		}, 
+		connect: function (addr, id) {
+			return API.JRPCObj("connect",{ addr: addr },id);
+		},
 		keep_alive: function (id) {
 			return API.JRPCObj("keep_alive",{},id);
 		},
@@ -88,8 +91,32 @@ var API = {
 		stop_analyzer: function (id) {
 			return API.JRPCObj("stop_analyzer",{},id);
 		},
-		stop_analyzer: function (id) {
-			return API.JRPCObj("stop_analyzer",{},id);
+		set_radiomon: function (id) {
+			return API.JRPCObj("set_radiomon",{},id);
+		},
+		autotune_radio: function (id) {
+			return API.JRPCObj("autotune_radio",{},id);
+		},
+		set_vehicle: function (id) {
+			return API.JRPCObj("set_vehicle",{},id);
+		},
+		set_ptt: function (id) {
+			return API.JRPCObj("set_ptt",{},id);
+		},
+		set_role: function (id) {
+			return API.JRPCObj("set_role",{},id);
+		},
+		set_asset: function (id) {
+			return API.JRPCObj("set_asset",{},id);
+		},
+		set_client_name: function (id) {
+			return API.JRPCObj("set_client_name",{},id);
+		},
+		set_test_mode: function (id) {
+			return API.JRPCObj("set_test_mode",{},id);
+		},
+		set_world_pos: function (x,y,z,id) {
+			return API.JRPCObj("set_world_pos",{},id);
 		}
 	},
 }
