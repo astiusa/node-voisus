@@ -6,7 +6,6 @@ var API = {
 	{
 		var client = net.connect({host: host, port: port}, function() { 
 		  	console.log('client connected');
-		  	client.write(jsonify.stringify(Commands.ping) + "\0");
 		});
 
 		client.on('data', function(data) {
@@ -22,8 +21,10 @@ var API = {
 	{
 		if (typeof(_method) !== 'string')
 			return null;
+		
 		if (typeof(_params) === 'undefined')
 			_params = {};
+
 		if (typeof(_id) === 'undefined')
 			_id = null;
 
@@ -33,90 +34,178 @@ var API = {
 	{
 		return jsonify.stringify(jrpcObj) + "\0"; 
 	},
+	Send: function (jrpcObj, callback)
+	{
+		client.write(jsonify.stringify(jrpcObj), callback)
+	},
 	Commands: {
-		ping: function (id) {
-			return API.JRPCObj("ping",{},id);
+		ping: function (id, callback) {
+			var obj = API.JRPCObj("ping",
+				{},
+				id);
+			API.Send(obj, callback);
 		}, 
-		connect: function (addr, id) {
-			return API.JRPCObj("connect",{ addr: addr },id);
+		connect: function (addr, id, callback) {
+			var obj = API.JRPCObj("connect",
+				{ addr: addr },
+				id);
+			API.Send(obj, callback);
 		},
-		keep_alive: function (id) {
-			return API.JRPCObj("keep_alive",{},id);
+		keep_alive: function (id, callback) {
+			var obj = API.JRPCObj("keep_alive",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		disconnect: function (id) {
-			return API.JRPCObj("disconnect",{},id);
+		disconnect: function (id, callback) {
+			var obj = API.JRPCObj("disconnect",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_operators: function (id) {
-			return API.JRPCObj("get_operators",{},id);
+		get_operators: function (id, callback) {
+			var obj = API.JRPCObj("get_operators",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_assets: function (id) {
-			return API.JRPCObj("get_assets",{},id);
+		get_assets: function (id, callback) {
+			var obj =  API.JRPCObj("get_assets",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_connection: function (id) {
-			return API.JRPCObj("get_connection",{},id);
+		get_connection: function (id, callback) {
+			var obj = API.JRPCObj("get_connection",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_client_name: function (id) {
-			return API.JRPCObj("get_client_name",{},id);
+		get_client_name: function (id, callback) {
+			var obj = API.JRPCObj("get_client_name",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_curr_role: function (id) {
-			return API.JRPCObj("get_curr_role",{},id);
+		get_curr_role: function (id, callback) {
+			var obj = API.JRPCObj("get_curr_role",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_analyzer_results: function (id) {
-			return API.JRPCObj("get_analyzer_results",{},id);
+		get_analyzer_results: function (id, callback) {
+			var obj = API.JRPCObj("get_analyzer_results",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_asset_nets: function (id) {
-			return API.JRPCObj("get_asset_nets",{},id);
+		get_asset_nets: function (id, callback) {
+			var obj = API.JRPCObj("get_asset_nets",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_network_settings: function (id) {
-			return API.JRPCObj("get_network_settings",{},id);
+		get_network_settings: function (id, callback) {
+			var obj = API.JRPCObj("get_network_settings",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_headset_settings: function (id) {
-			return API.JRPCObj("get_headset_settings",{},id);
+		get_headset_settings: function (id, callback) {
+			var obj = API.JRPCObj("get_headset_settings",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_roles: function (id) {
-			return API.JRPCObj("get_roles",{},id);
+		get_roles: function (id, callback) {
+			var obj = API.JRPCObj("get_roles",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_vehicles: function (id) {
-			return API.JRPCObj("get_vehicles",{},id);
+		get_vehicles: function (id, callback) {
+			var obj = API.JRPCObj("get_vehicles",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_transmitting: function (id) {
-			return API.JRPCObj("get_transmitting",{},id);
+		get_transmitting: function (id, callback) {
+			var obj = API.JRPCObj("get_transmitting",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		get_versions: function (id) {
-			return API.JRPCObj("get_versions",{},id);
+		get_versions: function (id, callback) {
+			var obj = API.JRPCObj("get_versions",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		start_analyzer: function (id) {
-			return API.JRPCObj("start_analyzer",{},id);
+		start_analyzer: function (id, callback) {
+			var obj = API.JRPCObj("start_analyzer",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		stop_analyzer: function (id) {
-			return API.JRPCObj("stop_analyzer",{},id);
+		stop_analyzer: function (id, callback) {
+			var obj = API.JRPCObj("stop_analyzer",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		set_radiomon: function (id) {
-			return API.JRPCObj("set_radiomon",{},id);
+		set_radiomon: function (/* Integer 1 on 0 off */ status, id, callback) {
+			var obj = API.JRPCObj("set_radiomon",
+				{status: status},
+				id);
+			API.Send(obj, callback);
 		},
-		autotune_radio: function (id) {
-			return API.JRPCObj("autotune_radio",{},id);
+		autotune_radio: function (id, callback) {
+			var obj = API.JRPCObj("autotune_radio",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		set_vehicle: function (id) {
-			return API.JRPCObj("set_vehicle",{},id);
+		set_vehicle: function (vehicle_id, id, callback) {
+			var obj = API.JRPCObj("set_vehicle",
+				{id: vehicle_id},
+				id);
+			API.Send(obj, callback);
 		},
-		set_ptt: function (id) {
-			return API.JRPCObj("set_ptt",{},id);
+		set_ptt: function (/* number */ ptt, id, callback) {
+			var obj = API.JRPCObj("set_ptt",
+				{ptt : ptt},
+				id);
+			API.Send(obj, callback);
 		},
-		set_role: function (id) {
-			return API.JRPCObj("set_role",{},id);
+		set_role: function (role_id, id, callback) {
+			var obj = API.JRPCObj("set_role",
+				{id: role_id},
+				id);
+			API.Send(obj, callback);
 		},
-		set_asset: function (id) {
-			return API.JRPCObj("set_asset",{},id);
+		set_asset: function (id, callback) {
+			var obj = API.JRPCObj("set_asset",
+				{},
+				id);
+			API.Send(obj, callback);
 		},
-		set_client_name: function (id) {
-			return API.JRPCObj("set_client_name",{},id);
+		set_client_name: function (/* string */ name, id, callback) {
+			var obj = API.JRPCObj("set_client_name", 
+				{name: name}, 
+				id);
+			API.Send(obj, callback);
 		},
-		set_test_mode: function (id) {
-			return API.JRPCObj("set_test_mode",{},id);
+		set_test_mode: function (mode, id, callback) {
+			var obj = API.JRPCObj("set_test_mode",
+				{mode: mode},
+				id);
+			API.Send(obj, callback);
 		},
-		set_world_pos: function (x,y,z,id) {
-			return API.JRPCObj("set_world_pos",{},id);
+		set_world_pos: function (/* number */ xCoord, /* number */ yCoord, /* number */ zCoord, id, callback) {
+			var obj = API.JRPCObj("set_world_pos", 
+				{xcoord: xCoord, ycoord: yCoord, zcoord: zCoord}, 
+				id);
+			API.Send(obj, callback);
 		}
 	},
 }
