@@ -1,21 +1,20 @@
 var net = require('net');
 var jsonify = require('jsonify');
 
+var client;
+
 var API = {
-	Connect: function (host, port) 
+	Connect: function (host, port, callback) 
 	{
-		var client = net.connect({host: host, port: port}, function() { 
-		  	console.log('client connected');
-		});
-
-		client.on('data', function(data) {
-			console.log(jsonify.parse(data.toString()));
-		 	client.end();
-		});
-
-		client.on('end', function() {
-		  	console.log('client disconnected');
-		});
+		client = net.connect({host: host, port: port}, callback);
+	},
+	Data: function (callback) 
+	{
+		client.on('data', callback);
+	},
+	End: function (callback) 
+	{
+		client.on('end', callback);
 	},
 	JRPCObj: function (_method, _params, _id)
 	{
@@ -36,7 +35,7 @@ var API = {
 	},
 	Send: function (jrpcObj, callback)
 	{
-		client.write(jsonify.stringify(jrpcObj), callback)
+		client.write(jsonify.stringify(jrpcObj), 'UTF8', callback)
 	},
 	Commands: {
 		ping: function (id, callback) {

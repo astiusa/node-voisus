@@ -62,3 +62,25 @@ describe('JRPC Object Components: ', function() {
 		str[str.length - 1].should.equal("\0");
 	});
 });
+
+describe('Voisus Commands: ', function() {
+	it("Should provide Ping", function (done)
+	{
+		voisus.Connect("10.26.0.117", "51234", function() {
+			voisus.Data(function (data) { console.log(data); });
+			voisus.Commands.ping(0, function () {							
+				done();				
+			});
+		});		
+	});
+
+	it("Should provide Connect", function (done)
+	{
+		voisus.Connect("10.26.0.117", "51234", function() {
+			voisus.Data(function (data) { console.log(data); });
+			voisus.Commands.connect("10.26.4.111", 0, function () {	
+				done();				
+			});
+		});		
+	});
+});
