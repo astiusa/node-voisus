@@ -46,6 +46,16 @@ describe("JRPC Base: ", function () {
 			jrpc.disconnect();
 		});
 
+		it ("Create be able to send the message", function (done) {
+			var jrpc = new JRPCBase(test.host, test.port);
+			jrpc.onEnd(function(data) { done(); });
+
+			var msg = jrpc.Method("test");
+			jrpc.Send(msg);
+
+			jrpc.disconnect();
+		});
+
 		it ("Parse messages from server", function (done) {
 			var jrpc = new JRPCBase(test.host, test.port);
 			jrpc.onEnd(function(data) { done(); });

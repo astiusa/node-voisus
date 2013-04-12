@@ -43,6 +43,10 @@ obj.prototype = {
 		return jsonify.parse(json);
 	},
 
+	Send : function (obj, callback) {
+		this.client.write(this.Message(obj), 'UTF-8', callback);
+	},
+
 	/** Events **/
 	onData : function (fn) {
 		this.client.on('data', fn);
