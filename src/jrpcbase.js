@@ -1,9 +1,7 @@
 var net = require('net');
 var jsonify = require('jsonify');
 
-var obj;
-
-obj = function (host, port, callback) {
+var obj = function (host, port, callback) {
   	this.host = host;
   	this.port = port;
 
@@ -59,6 +57,7 @@ obj.prototype = {
 		this.client.on('error', fn);
 	},
 	onEnd : function (fn) {
+		console.log("" + fn);
 		this.client.on('end', fn);
 	}
 }

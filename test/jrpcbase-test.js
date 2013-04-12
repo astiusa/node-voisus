@@ -1,11 +1,17 @@
 var should = require('should');
 var JRPCBase = require('../src/jrpcbase');
 
+var test = {
+	host: "www.asti-usa.com", 
+	badHost: "www.def.not.asti-usa.museum", 
+	port: 80
+}
+
 describe("JRPC Base: ", function () {
 	describe("Constructor: ", function () {
 
 		it ("should accept a host and port, and connect on creation and the callback should be executed upon connection.", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { done(); });
+			var jrpc = new JRPCBase(test.host, test.port, function () { done(); });
 
 			jrpc.disconnect();
 		});
@@ -14,7 +20,7 @@ describe("JRPC Base: ", function () {
 	describe ("Basic Functionality: ", function () {
 
 		it ("Allow writing to the page", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.write('hello world!\r\n', function (data) { done(); } );
 
@@ -22,7 +28,7 @@ describe("JRPC Base: ", function () {
 		});
 
 		it ("Allow customization of the timeout", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.setTimeout(500);
 
@@ -31,8 +37,7 @@ describe("JRPC Base: ", function () {
 		});
 
 		it ("Create valid messages to server", function (done) {
-
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 			jrpc.onEnd(function(data) { done(); });
 
 			var msg = jrpc.Method("test");
@@ -42,7 +47,7 @@ describe("JRPC Base: ", function () {
 		});
 
 		it ("Parse messages from server", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 			jrpc.onEnd(function(data) { done(); });
 
 			var res = jrpc.Response('{"jsonrpc":"2.0","id":null,"error": null,"result":""}');
@@ -60,7 +65,7 @@ describe("JRPC Base: ", function () {
 
 		describe("Should create valid JRPC Objects: ", function () {
 			it ("Empty", function (done) {
-				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 				jrpc.onEnd(function(data) { done(); });
 
 				var result = jrpc.Method();
@@ -71,7 +76,7 @@ describe("JRPC Base: ", function () {
 			});
 
 			it ("Only method", function (done) {
-				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 				jrpc.onEnd(function(data) { done(); });
 
 				var result = jrpc.Method("test");
@@ -91,7 +96,7 @@ describe("JRPC Base: ", function () {
 			});
 
 			it ("Method and params", function (done) {
-				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 				jrpc.onEnd(function(data) { done(); });
 
 				var result = jrpc.Method("test", {a: 1, b: 2});
@@ -115,7 +120,7 @@ describe("JRPC Base: ", function () {
 			});
 
 			it ("Method and params and ID", function (done) {
-				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 				jrpc.onEnd(function(data) { done(); });
 
 				var result = jrpc.Method("test", {a: 1, b: 2}, 4);
@@ -144,7 +149,7 @@ describe("JRPC Base: ", function () {
 	describe ("Event Subscription: ", function () {
 		
 		it ("data", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.onData(function(data) { done(); });
 			jrpc.write('hello world!\r\n');
@@ -153,16 +158,15 @@ describe("JRPC Base: ", function () {
 		});
 
 		it ("End", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.onEnd(function(data) { done(); });
 
 			jrpc.disconnect();
 		});
 
-		
 		it ("close", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 			
 			jrpc.onClose(function(data) { done(); });
 
@@ -170,7 +174,7 @@ describe("JRPC Base: ", function () {
 		});
 		
 		it ("error", function (done) {
-			var jrpc = new JRPCBase("www.def.not.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.badHost, test.port);
 
 			jrpc.onError(function(data) { done(); });
 
@@ -178,7 +182,7 @@ describe("JRPC Base: ", function () {
 		});
 		
 		it ("timeout", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.onTimeout(function(data) { done(); });
 			jrpc.setTimeout(100);
