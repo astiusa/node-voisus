@@ -13,28 +13,138 @@ describe("JRPC Base: ", function () {
 
 	describe ("Basic Functionality: ", function () {
 
-		it ("should allow writing to the page", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+		it ("Allow writing to the page", function (done) {
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 
 			jrpc.write('hello world!\r\n', function (data) { done(); } );
 
 			jrpc.disconnect();
 		});
 
-		it ("should allow customization of the timeout", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+		it ("Allow customization of the timeout", function (done) {
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 
 			jrpc.setTimeout(500);
 
 			jrpc.disconnect();
 			done();
 		});
+
+		it ("Create valid messages to server", function (done) {
+
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			jrpc.onEnd(function(data) { done(); });
+
+			var msg = jrpc.Method("test");
+			jrpc.Message(msg).should.equal('{"jsonrpc":"2.0","id":null,"method":"test","params":{}}\u0000');
+
+			jrpc.disconnect();
+		});
+
+		it ("Parse messages from server", function (done) {
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
+			jrpc.onEnd(function(data) { done(); });
+
+			var res = jrpc.Response('{"jsonrpc":"2.0","id":null,"error": null,"result":""}');
+
+			should.exist(res.jsonrpc);
+			should.not.exist(res.id);
+			should.not.exist(res.error);
+			should.exist(res.result);
+
+			res.jsonrpc.should.equal("2.0");
+			res.result.should.equal("");
+
+			jrpc.disconnect();
+		});
+
+		describe("Should create valid JRPC Objects: ", function () {
+			it ("Empty", function (done) {
+				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+				jrpc.onEnd(function(data) { done(); });
+
+				var result = jrpc.Method();
+
+				should.not.exist(result);
+
+				jrpc.disconnect();
+			});
+
+			it ("Only method", function (done) {
+				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+				jrpc.onEnd(function(data) { done(); });
+
+				var result = jrpc.Method("test");
+
+				should.exist(result);
+				
+				should.exist(result.jsonrpc);
+				should.not.exist(result.id);
+				should.exist(result.method);
+				should.exist(result.params);
+
+				Object.keys(result.params).length.should.equal(0);
+				result.jsonrpc.should.equal("2.0");
+				result.method.should.equal("test");
+
+				jrpc.disconnect();
+			});
+
+			it ("Method and params", function (done) {
+				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+				jrpc.onEnd(function(data) { done(); });
+
+				var result = jrpc.Method("test", {a: 1, b: 2});
+
+				should.exist(result);
+				
+				should.exist(result.jsonrpc);
+				should.not.exist(result.id);
+				should.exist(result.method);
+				should.exist(result.params);
+
+				Object.keys(result.params).length.should.equal(2);
+
+				result.params.a.should.equal(1);
+				result.params.b.should.equal(2);
+
+				result.jsonrpc.should.equal("2.0");
+				result.method.should.equal("test");
+
+				jrpc.disconnect();
+			});
+
+			it ("Method and params and ID", function (done) {
+				var jrpc = new JRPCBase("www.asti-usa.com", "80");
+				jrpc.onEnd(function(data) { done(); });
+
+				var result = jrpc.Method("test", {a: 1, b: 2}, 4);
+
+				should.exist(result);
+				
+				should.exist(result.jsonrpc);
+				should.exist(result.id);
+				should.exist(result.method);
+				should.exist(result.params);
+
+				Object.keys(result.params).length.should.equal(2);
+
+				result.params.a.should.equal(1);
+				result.params.b.should.equal(2);
+				
+				result.id.should.equal(4);
+				result.jsonrpc.should.equal("2.0");
+				result.method.should.equal("test");
+
+				jrpc.disconnect();
+			});
+		});
 	})
 
 	describe ("Event Subscription: ", function () {
 		
 		it ("data", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 
 			jrpc.onData(function(data) { done(); });
 			jrpc.write('hello world!\r\n');
@@ -43,7 +153,7 @@ describe("JRPC Base: ", function () {
 		});
 
 		it ("End", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 
 			jrpc.onEnd(function(data) { done(); });
 
@@ -52,16 +162,15 @@ describe("JRPC Base: ", function () {
 
 		
 		it ("close", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 			
 			jrpc.onClose(function(data) { done(); });
 
 			jrpc.disconnect();				
 		});
-
 		
 		it ("error", function (done) {
-			var jrpc = new JRPCBase("www.def.not.asti-usa.com", "80", function () { });
+			var jrpc = new JRPCBase("www.def.not.asti-usa.com", "80");
 
 			jrpc.onError(function(data) { done(); });
 
@@ -69,7 +178,7 @@ describe("JRPC Base: ", function () {
 		});
 		
 		it ("timeout", function (done) {
-			var jrpc = new JRPCBase("www.asti-usa.com", "80", function () { });
+			var jrpc = new JRPCBase("www.asti-usa.com", "80");
 
 			jrpc.onTimeout(function(data) { done(); });
 			jrpc.setTimeout(100);
