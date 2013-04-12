@@ -57,7 +57,6 @@ obj.prototype = {
 		this.client.on('error', fn);
 	},
 	onEnd : function (fn) {
-		console.log("" + fn);
 		this.client.on('end', fn);
 	}
 }
