@@ -9,7 +9,7 @@ var test = {
 
 describe("JRPC Base: ", function () {
 	describe("Constructor: ", function () {
-
+		
 		it ("should accept a host and port, and connect on creation and the callback should be executed upon connection.", function (done) {
 			var jrpc = new JRPCBase(test.host, test.port, function () { done(); });
 
@@ -17,7 +17,7 @@ describe("JRPC Base: ", function () {
 		});
 	});
 
-	describe ("Basic Functionality: ", function () {
+	describe("Basic Functionality: ", function () {
 
 		it ("Allow writing to the page", function (done) {
 			var jrpc = new JRPCBase(test.host, test.port);
@@ -167,7 +167,7 @@ describe("JRPC Base: ", function () {
 			jrpc.disconnect();
 		});
 
-		it ("End", function (done) {
+		it ("end", function (done) {
 			var jrpc = new JRPCBase(test.host, test.port);
 
 			jrpc.onEnd(function(data) { done(); });

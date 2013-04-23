@@ -6,7 +6,10 @@ var obj = function (host, port, callback) {
 
 obj.prototype = {
 	Disconnect: function (data, encoding) {
-		this.jrpcClient.disconnect();
+		this.jrpcClient.disconnect(data, encoding);
+	},
+	SetTimeout : function (val, fn) {
+		this.jrpcClient.setTimeout(val, fn);
 	},
 
 	/** Begin Commands **/
@@ -15,18 +18,31 @@ obj.prototype = {
 		this.jrpcClient.Send(msg, fn);
 	},
 
-	/** **/
+	/** Begin Commands **/
+	send: function (msg, fn) {
+		this.jrpcClient.Send(msg, fn);
+	},
 
-	onDisconnect : function (fn) { 
+	/** Events **/
+	onEnd : function (fn) { 
 		this.jrpcClient.onEnd(fn);
 	},
-	onResponse : function (fn) { 
+	onTimeout : function (fn) { 
+		this.jrpcClient.onTimeout(fn);
+	},
+	onClose : function (fn) { 
+		this.jrpcClient.onClose(fn);
+	},
+	onError : function (fn) { 
+		this.jrpcClient.onError(fn);
+	},
+	onData : function (fn) { 
 		this.jrpcClient.onData(fn);
 	},
 };
 
 module.exports = obj;
-
+/*
 var API = {
 	Connect: function (host, port, callback) 
 	{
@@ -201,7 +217,7 @@ var API = {
 				id);
 			API.Send(obj, callback);
 		},
-		set_radiomon: function (/* Integer 1 on 0 off */ status, id, callback) {
+		set_radiomon: function (/* Integer 1 on 0 off * / status, id, callback) {
 			var obj = API.JRPCObj("set_radiomon",
 				{status: status},
 				id);
@@ -219,7 +235,7 @@ var API = {
 				id);
 			API.Send(obj, callback);
 		},
-		set_ptt: function (/* number */ ptt, id, callback) {
+		set_ptt: function (/* number * / ptt, id, callback) {
 			var obj = API.JRPCObj("set_ptt",
 				{ptt : ptt},
 				id);
@@ -237,7 +253,7 @@ var API = {
 				id);
 			API.Send(obj, callback);
 		},
-		set_client_name: function (/* string */ name, id, callback) {
+		set_client_name: function (/* string * / name, id, callback) {
 			var obj = API.JRPCObj("set_client_name", 
 				{name: name}, 
 				id);
@@ -249,11 +265,11 @@ var API = {
 				id);
 			API.Send(obj, callback);
 		},
-		set_world_pos: function (/* number */ xCoord, /* number */ yCoord, /* number */ zCoord, id, callback) {
+		set_world_pos: function (/* number * / xCoord, /* number * / yCoord, /* number * / zCoord, id, callback) {
 			var obj = API.JRPCObj("set_world_pos", 
 				{xcoord: xCoord, ycoord: yCoord, zcoord: zCoord}, 
 				id);
 			API.Send(obj, callback);
 		}
 	},
-}
+}*/
