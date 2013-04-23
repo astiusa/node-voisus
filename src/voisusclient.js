@@ -1,10 +1,31 @@
 var JRPCBase = require("./jrpcbase");
 
 var obj = function (host, port, callback) {
+	var that = this;
 	this.jrpcClient = new JRPCBase(host, port, callback);
+
+	this.onData(function (responseMsg) {
+		var response = that.jrpcClient.Response(responseMsg.toString());
+
+		if (typeof(that.Lookup[response.id]) === 'undefined')
+			return;
+
+		var func = that.Lookup[response.id];
+
+		that.Lookup[response.id] = undefined;
+
+		func();
+	});
 };
 
 obj.prototype = {
+	jrpcClient: {},
+	id: 0,
+	Lookup: {},
+	NextID : function () {
+		return this.id++;
+	},
+
 	Disconnect: function (data, encoding) {
 		this.jrpcClient.disconnect(data, encoding);
 	},
@@ -12,15 +33,17 @@ obj.prototype = {
 		this.jrpcClient.setTimeout(val, fn);
 	},
 
-	/** Begin Commands **/
-	ping: function (fn) {
-		var msg = this.jrpcClient.Method("ping");
+	Send: function (msg, fn) {
 		this.jrpcClient.Send(msg, fn);
 	},
 
 	/** Begin Commands **/
-	send: function (msg, fn) {
-		this.jrpcClient.Send(msg, fn);
+	ping: function (fn) {
+		var msg = this.jrpcClient.Method("ping", this.NextID());
+
+		this.Lookup[msg.id] = fn;
+
+		this.jrpcClient.Send(msg);
 	},
 
 	/** Events **/

@@ -30,7 +30,7 @@ describe('Voisus Client: ', function () {
 		it ("Allow sending messages", function (done) {
 			var client = new vc(test.host, test.port);
 
-			client.send('hello world!\r\n', function (data) { done(); } );
+			client.Send('hello world!\r\n', function (data) { done(); } );
 
 			client.Disconnect();
 		});
@@ -45,7 +45,7 @@ describe('Voisus Client: ', function () {
 
 				client.onData(function(data) { done(); });
 
-				client.send('hello world!\r\n', function (data) { done(); } );
+				client.Send('hello world!\r\n', function (data) { done(); } );
 
 				client.Disconnect();
 			});
@@ -89,11 +89,22 @@ describe('Voisus Client: ', function () {
 
 	describe('Windows PC Connection: ', function () {
 		
-		
 		it ("Should establish connection.", function (done) {
 			var client = new vc(test.clientPC, test.clientPort, function () { done(); });
 
 			client.Disconnect();
+		});
+
+		describe('Commands: ', function () {
+			it ("ping", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.ping(function (data) {done()});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
 		});
 	});	
 });

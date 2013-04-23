@@ -28,6 +28,12 @@ obj.prototype = {
 		
 		if (typeof(params) === 'undefined')
 			params = {};
+		
+		if (typeof(params) !== 'object')
+		{
+			id = params;
+			params = {};
+		}
 
 		if (typeof(id) === 'undefined')
 			id = null;

@@ -1,1 +1,1 @@
-var jsonify = require('jsonify');
+var JRPCBase = require("./jrpcbase");
