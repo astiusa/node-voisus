@@ -14,7 +14,7 @@ var obj = function (host, port, callback) {
 
 		that.Lookup[response.id] = undefined;
 
-		func();
+		func(response);
 	});
 };
 
@@ -40,9 +40,94 @@ obj.prototype = {
 	/** Begin Commands **/
 	ping: function (fn) {
 		var msg = this.jrpcClient.Method("ping", this.NextID());
-
 		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
 
+	connect: function (addr, fn) {
+		var msg = this.jrpcClient.Method("connect", { addr: addr }, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+
+	disconnect: function (fn) {
+		var msg = this.jrpcClient.Method("disconnect", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_versions: function (fn) {
+		var msg = this.jrpcClient.Method("get_versions", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_assets: function (fn) {
+		var msg = this.jrpcClient.Method("get_assets", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_operators: function (fn) {
+		var msg = this.jrpcClient.Method("get_operators", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_world_pos: function (xCoord, yCoord, zCoord, fn) {
+		var msg = this.jrpcClient.Method("set_world_pos", {xcoord: xCoord, ycoord: yCoord, zcoord: zCoord}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_test_mode: function (mode, fn) {
+		var msg = this.jrpcClient.Method("set_test_mode", {mode: mode.toString()}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_connection: function (fn) {
+		var msg = this.jrpcClient.Method("get_connection", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_client_name: function (fn) {
+		var msg = this.jrpcClient.Method("get_client_name", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_curr_role: function (fn) {
+		var msg = this.jrpcClient.Method("get_curr_role", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_asset_nets: function (fn) {
+		var msg = this.jrpcClient.Method("get_asset_nets", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_analyzer_results: function (fn) {
+		var msg = this.jrpcClient.Method("get_analyzer_results", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_network_settings: function (fn) {
+		var msg = this.jrpcClient.Method("get_network_settings", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_headset_settings: function (fn) {
+		var msg = this.jrpcClient.Method("get_headset_settings", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_roles: function (fn) {
+		var msg = this.jrpcClient.Method("get_roles", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	start_analyzer: function (fn) {
+		var msg = this.jrpcClient.Method("start_analyzer", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	stop_analyzer: function (fn) {
+		var msg = this.jrpcClient.Method("stop_analyzer", this.NextID());
+		this.Lookup[msg.id] = fn;
 		this.jrpcClient.Send(msg);
 	},
 
@@ -67,145 +152,8 @@ obj.prototype = {
 module.exports = obj;
 /*
 var API = {
-	Connect: function (host, port, callback) 
-	{
-		if (typeof(client) !== 'undefined')
-			client.end();
-
-		client = net.connect({host: host, port: port}, function () {
-			console.log("connected to " + host);
-			callback();});
-		
-		client.on('data', function(data) { 
-		  console.log(data.toString());
-		});
-
-		client.on('end', function() {
-		  console.log('client disconnected');
-		});
-	},
-	Data: function (callback) 
-	{
-		if (typeof(client) === 'undefined')
-			return callback("Not connected to VoisusMain");
-
-		client.on('data', callback);
-	},
-	End: function (callback) 
-	{
-		if (typeof(client) === 'undefined')
-			return callback("Not connected to VoisusMain");
-
-		if (typeof(callback) === 'undefined')
-			client.end();
-		else
-			client.on('end', callback);
-	},
-	JRPCObj: function (_method, _params, _id)
-	{
-		if (typeof(_method) !== 'string')
-			return null;
-		
-		if (typeof(_params) === 'undefined')
-			_params = {};
-
-		if (typeof(_id) === 'undefined')
-			_id = null;
-
-		return { jsonrpc: "2.0", id: _id, method: _method, params: _params};
-	},
-	JRPCString: function (jrpcObj)
-	{
-		return jsonify.stringify(jrpcObj) + "\0"; 
-	},
-	Send: function (jrpcObj, callback)
-	{
-		if (typeof(client) === 'undefined')
-			return callback("Not connected to VoisusMain");
-
-		client.write(jsonify.stringify(jrpcObj), 'UTF8', callback)
-	},
-	commands: {
-		ping: function (id, callback) {
-			var obj = API.JRPCObj("ping",
-				{},
-				id);
-			API.Send(obj, callback);
-		}, 
-		connect: function (addr, id, callback) {
-			var obj = API.JRPCObj("connect",
-				{ addr: addr },
-				id);
-			API.Send(obj, callback);
-		},
 		keep_alive: function (id, callback) {
 			var obj = API.JRPCObj("keep_alive",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		disconnect: function (id, callback) {
-			var obj = API.JRPCObj("disconnect",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_operators: function (id, callback) {
-			var obj = API.JRPCObj("get_operators",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_assets: function (id, callback) {
-			var obj =  API.JRPCObj("get_assets",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_connection: function (id, callback) {
-			var obj = API.JRPCObj("get_connection",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_client_name: function (id, callback) {
-			var obj = API.JRPCObj("get_client_name",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_curr_role: function (id, callback) {
-			var obj = API.JRPCObj("get_curr_role",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_analyzer_results: function (id, callback) {
-			var obj = API.JRPCObj("get_analyzer_results",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_asset_nets: function (id, callback) {
-			var obj = API.JRPCObj("get_asset_nets",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_network_settings: function (id, callback) {
-			var obj = API.JRPCObj("get_network_settings",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_headset_settings: function (id, callback) {
-			var obj = API.JRPCObj("get_headset_settings",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_roles: function (id, callback) {
-			var obj = API.JRPCObj("get_roles",
 				{},
 				id);
 			API.Send(obj, callback);
@@ -218,18 +166,6 @@ var API = {
 		},
 		get_transmitting: function (id, callback) {
 			var obj = API.JRPCObj("get_transmitting",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_versions: function (id, callback) {
-			var obj = API.JRPCObj("get_versions",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		start_analyzer: function (id, callback) {
-			var obj = API.JRPCObj("start_analyzer",
 				{},
 				id);
 			API.Send(obj, callback);
@@ -282,17 +218,5 @@ var API = {
 				id);
 			API.Send(obj, callback);
 		},
-		set_test_mode: function (mode, id, callback) {
-			var obj = API.JRPCObj("set_test_mode",
-				{mode: mode},
-				id);
-			API.Send(obj, callback);
-		},
-		set_world_pos: function (/* number * / xCoord, /* number * / yCoord, /* number * / zCoord, id, callback) {
-			var obj = API.JRPCObj("set_world_pos", 
-				{xcoord: xCoord, ycoord: yCoord, zcoord: zCoord}, 
-				id);
-			API.Send(obj, callback);
-		}
 	},
 }*/
