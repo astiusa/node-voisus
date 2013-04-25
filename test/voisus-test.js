@@ -367,7 +367,6 @@ describe('Voisus Client: ', function () {
 					(typeof(response)).should.equal("object");
 
 					should.exist(response.id);
-
 					should.exist(response.result);
 					
 					response.result.should.equal('ok');
@@ -389,7 +388,6 @@ describe('Voisus Client: ', function () {
 					(typeof(response)).should.equal("object");
 
 					should.exist(response.id);
-
 					should.exist(response.result);
 					
 					(typeof(response.result)).should.equal("object");
@@ -411,7 +409,6 @@ describe('Voisus Client: ', function () {
 					(typeof(response)).should.equal("object");
 
 					should.exist(response.id);
-
 					should.exist(response.result);
 					
 					response.result.should.equal("ok");
@@ -477,6 +474,229 @@ describe('Voisus Client: ', function () {
 					should.exist(response.result);
 					
 					(typeof(response.result)).should.equal("object");
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("get_vehicles", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.get_vehicles(function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.not.exist(response.result);
+					
+					(typeof(response.result)).should.equal("object");
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("get_transmitting", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.get_transmitting(function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+										
+					response.result.should.equal(false);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("autotune_radio", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.autotune_radio("1", 1, function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+										
+					response.result.should.equal('ok');
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_radiomon", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_radiomon(1, function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+										
+					response.result.should.equal('ok');
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_vehicle", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_vehicle("44", function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+										
+					response.result.should.equal('ok');
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_ptt", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_ptt(1, function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_role", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_role("testid", function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_client_name", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_client_name("new name", function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it ("set_client_name", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_client_name("new name", function (response) {
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it.skip("set_asset", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.set_asset(function (response) {
+
+					console.log(response);
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
+
+					response.jsonrpc.should.equal('2.0');
+					
+					done()
+				});
+
+				setTimeout(function () {
+					client.Disconnect();	
+				}, 300);		
+			});
+			it.skip("keep_alive", function (done) {
+				var client = new vc(test.clientPC, test.clientPort);
+
+				client.keep_alive(function (response) {
+
+					console.log(response);
+
+					(typeof(response)).should.equal("object");
+
+					should.exist(response.id);
+					should.exist(response.result);
 
 					response.jsonrpc.should.equal('2.0');
 					

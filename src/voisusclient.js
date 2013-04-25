@@ -130,6 +130,57 @@ obj.prototype = {
 		this.Lookup[msg.id] = fn;
 		this.jrpcClient.Send(msg);
 	},
+	get_vehicles: function (fn) {
+		var msg = this.jrpcClient.Method("get_vehicles", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	get_transmitting: function (fn) {
+		var msg = this.jrpcClient.Method("get_transmitting", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	autotune_radio: function (rmtx_id, r_idx, fn) {
+		var msg = this.jrpcClient.Method("autotune_radio", {rmtx_id: rmtx_id, r_idx: r_idx}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_radiomon: function (status, fn) {
+		var msg = this.jrpcClient.Method("set_radiomon", {status: status}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_vehicle: function (id, fn) {
+		var msg = this.jrpcClient.Method("set_vehicle", {id: id}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_ptt: function (ptt, fn) {
+		var msg = this.jrpcClient.Method("set_ptt", {ptt: ptt}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_role: function (id, fn) {
+		var msg = this.jrpcClient.Method("set_role", {id: id}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	set_client_name: function (name, fn) {
+		var msg = this.jrpcClient.Method("set_client_name", {name: name}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	set_asset: function (idx, fn) {
+		var msg = this.jrpcClient.Method("set_asset", {idx: idx}, this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
+	keep_alive: function (name, fn) {
+		var msg = this.jrpcClient.Method("keep_alive", this.NextID());
+		this.Lookup[msg.id] = fn;
+		this.jrpcClient.Send(msg);
+	},
 
 	/** Events **/
 	onEnd : function (fn) { 
@@ -150,73 +201,3 @@ obj.prototype = {
 };
 
 module.exports = obj;
-/*
-var API = {
-		keep_alive: function (id, callback) {
-			var obj = API.JRPCObj("keep_alive",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_vehicles: function (id, callback) {
-			var obj = API.JRPCObj("get_vehicles",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		get_transmitting: function (id, callback) {
-			var obj = API.JRPCObj("get_transmitting",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		stop_analyzer: function (id, callback) {
-			var obj = API.JRPCObj("stop_analyzer",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		set_radiomon: function (/* Integer 1 on 0 off * / status, id, callback) {
-			var obj = API.JRPCObj("set_radiomon",
-				{status: status},
-				id);
-			API.Send(obj, callback);
-		},
-		autotune_radio: function (id, callback) {
-			var obj = API.JRPCObj("autotune_radio",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		set_vehicle: function (vehicle_id, id, callback) {
-			var obj = API.JRPCObj("set_vehicle",
-				{id: vehicle_id},
-				id);
-			API.Send(obj, callback);
-		},
-		set_ptt: function (/* number * / ptt, id, callback) {
-			var obj = API.JRPCObj("set_ptt",
-				{ptt : ptt},
-				id);
-			API.Send(obj, callback);
-		},
-		set_role: function (role_id, id, callback) {
-			var obj = API.JRPCObj("set_role",
-				{id: role_id},
-				id);
-			API.Send(obj, callback);
-		},
-		set_asset: function (id, callback) {
-			var obj = API.JRPCObj("set_asset",
-				{},
-				id);
-			API.Send(obj, callback);
-		},
-		set_client_name: function (/* string * / name, id, callback) {
-			var obj = API.JRPCObj("set_client_name", 
-				{name: name}, 
-				id);
-			API.Send(obj, callback);
-		},
-	},
-}*/
