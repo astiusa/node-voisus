@@ -170,13 +170,12 @@ obj.prototype = {
 		this.Lookup[msg.id] = fn;
 		this.jrpcClient.Send(msg);
 	},
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	set_asset: function (idx, fn) {
-		var msg = this.jrpcClient.Method("set_asset", {idx: idx}, this.NextID());
+	set_asset: function (idx, volume, fn) {
+		var msg = this.jrpcClient.Method("set_asset", {idx: idx, vol: volume}, this.NextID());
 		this.Lookup[msg.id] = fn;
 		this.jrpcClient.Send(msg);
 	},
-	keep_alive: function (name, fn) {
+	keep_alive: function (fn) {
 		var msg = this.jrpcClient.Method("keep_alive", this.NextID());
 		this.Lookup[msg.id] = fn;
 		this.jrpcClient.Send(msg);

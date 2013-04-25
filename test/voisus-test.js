@@ -253,7 +253,7 @@ describe('Voisus Client: ', function () {
 					(typeof(response)).should.equal("object");
 
 					should.exist(response.id);
-					should.exist(response.result);
+					should.not.exist(response.result);
 					
 					(typeof(response.result)).should.equal("object");
 
@@ -665,12 +665,10 @@ describe('Voisus Client: ', function () {
 					client.Disconnect();	
 				}, 300);		
 			});
-			it.skip("set_asset", function (done) {
+			it("set_asset", function (done) {
 				var client = new vc(test.clientPC, test.clientPort);
 
-				client.set_asset(function (response) {
-
-					console.log(response);
+				client.set_asset(4, 2, function (response) {	
 
 					(typeof(response)).should.equal("object");
 
@@ -686,12 +684,10 @@ describe('Voisus Client: ', function () {
 					client.Disconnect();	
 				}, 300);		
 			});
-			it.skip("keep_alive", function (done) {
+			it("keep_alive", function (done) {
 				var client = new vc(test.clientPC, test.clientPort);
 
 				client.keep_alive(function (response) {
-
-					console.log(response);
 
 					(typeof(response)).should.equal("object");
 
