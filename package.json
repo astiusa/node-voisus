@@ -6,10 +6,11 @@
     "start": "node ./src/voisus.js",
     "test": "mocha"
   },
-  "dependencies" : {
-    "jsonify": "*"
+  "dependencies": {
+    "jsonify": "*",
+    "restler": "~2.0.1"
   },
-  "devDependencies" : {
+  "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
