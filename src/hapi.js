@@ -62,7 +62,7 @@ obj.prototype = {
   getPerfmon: function(cb) {
     var url = this.url+'perfmon/';
     this.request(url, 'get', function(err, result) {
-      cb(err, result);
+      cb(err, result.stats);
     });
   },
   getRunlevel: function(cb) {
@@ -101,14 +101,31 @@ obj.prototype = {
         return cb(err);
       }
       sub = result.self;
+      if (!sub) {
+        return cb('no results1');
+      }
       var req = {payload:{"__asti_message":"start-stats"}};
       request(sub, 'put', JSON.stringify(req), function(err, result) {
         if (err) {
           return cb(err);
         }
+        if (!result) {
+          return cb('RESULT NOT DEFINED!?!?!');
+        }
         result = JSON.parse(result);
-        result = JSON.parse(result.payload[0]);
-        cb(null, result.radios.length);
+        console.log(result);
+        if (result && result.payload) {
+          if (result.payload.length === 0) {
+            return cb(null, 0);
+          }
+          if (result.payload[0]) {
+            result = JSON.parse(result.payload[0]);
+            return cb(null, result.radios.length);
+          }
+        }
+        else {
+          cb('no results');
+        }
       });
       //console.log(result.state);
       //console.log(result.state.length);

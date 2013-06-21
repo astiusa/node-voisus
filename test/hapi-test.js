@@ -68,15 +68,14 @@ describe('Voisus HAPI: ', function () {
       h.getPerfmon(function(err, stats) {
         should.not.exist(err);
         should.exist(stats);
-        should.exist(stats.stats);
-        should.exist(stats.stats.memfree);
-        should.exist(stats.stats.memtotal);
-        should.exist(stats.stats.eth1);
-        should.exist(stats.stats.swaptotal);
-        should.exist(stats.stats.sample_time);
-        should.exist(stats.stats.swapfree);
-        should.exist(stats.stats.cpu0);
-        should.exist(stats.stats.eth0);
+        should.exist(stats.memfree);
+        should.exist(stats.memtotal);
+        should.exist(stats.eth1);
+        should.exist(stats.swaptotal);
+        should.exist(stats.sample_time);
+        should.exist(stats.swapfree);
+        should.exist(stats.cpu0);
+        should.exist(stats.eth0);
         done();
       });
     });
