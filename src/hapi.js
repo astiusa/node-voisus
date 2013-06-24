@@ -135,6 +135,16 @@ obj.prototype = {
       //console.log(result.state);
       //console.log(result.state.length);
     });
+  },
+  getDownloadURLs: function(cb) {
+    var url = this.url+'downloads/';
+    var request = this.request;
+    request(url, 'get', function(err, result) {
+      if (err || ! result.items) {
+        return cb(err);
+      }
+      cb(null, result.items);
+    });
   }
 };
 
