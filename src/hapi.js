@@ -65,6 +65,12 @@ obj.prototype = {
       cb(err, result.stats);
     });
   },
+  getRunningSession: function(cb) {
+    var url = this.url+'sessions/running/';
+    this.request(url, 'get', function(err, result) {
+      cb(err, result);
+    });
+  },
   getRunlevel: function(cb) {
     var url = this.url+'syspower/';
     this.request(url, 'get', function(err, result) {
@@ -113,7 +119,6 @@ obj.prototype = {
           return cb('RESULT NOT DEFINED!?!?!');
         }
         result = JSON.parse(result);
-        console.log(result);
         if (result && result.payload) {
           if (result.payload.length === 0) {
             return cb(null, 0);
