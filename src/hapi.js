@@ -62,7 +62,12 @@ obj.prototype = {
   getPerfmon: function(cb) {
     var url = this.url+'perfmon/';
     this.request(url, 'get', function(err, result) {
-      cb(err, result.stats);
+      if (err || !result || !result.stats) {
+        return cb(err);
+      }
+      else {
+        cb(err, result.stats);
+      }
     });
   },
   getRunningSession: function(cb) {
