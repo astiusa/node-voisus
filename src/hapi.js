@@ -23,7 +23,7 @@ obj.prototype = {
       });
     }
     else if (type === 'post') {
-      rest.post(url).on('complete', function(result) {
+      rest.post(url, data, {parser: rest.parsers.json}).on('complete', function(result) {
         if (result instanceof Error) {
           console.log('Error: '+ result.message);
           return cb(result);
@@ -149,6 +149,138 @@ obj.prototype = {
         return cb(err);
       }
       cb(null, result.items);
+    });
+  },
+  getScenarioByName: function(scenarioName, cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'get', cb);
+      },
+      function(result, cb) {
+        var session;
+        for(var i in result.items)
+        {
+          if(result.items[i].name === scenarioName)
+          {
+            session = result.items[i].self;
+            break;
+          }
+        }
+        cb(null, session);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getScenarios: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  createScenario: function(scenarioName, cb) {
+    var request = this.request;
+    var url =  this.url;
+    var data = {data: {
+      name: scenarioName
+      }
+    };
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'post', data, cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  runScenario: function(scenarioName, cb) {
+    var request = this.request;
+    var url = this.url;
+    var self = this;
+    var sessionURL;
+    var data = {};
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        sessionURL = result.sessions;
+        request(result.scenarios, 'get', cb);
+      },
+      function(result, cb) {
+        self.getScenarioByName(scenarioName, cb);
+      },
+      function(result, cb) {
+        data = {data: {
+          scenario: result
+          }
+        };
+        request(sessionURL, 'post', data, cb);
+      },
+      function(result, cb) {
+        cb();
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  deleteScenario: function(scenario, cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        cb();
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getSessions: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.sessions, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   }
 };
