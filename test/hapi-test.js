@@ -3,7 +3,7 @@ var hapi = require('../src/hapi');
 
 var test = {
   //host: "166.78.248.5",
-  host: "166.78.112.50",
+  host: "10.26.4.113",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -71,7 +71,7 @@ describe('Voisus HAPI: ', function () {
         should.exist(stats);
         should.exist(stats.memfree);
         should.exist(stats.memtotal);
-        should.exist(stats.eth1);
+        //should.exist(stats.eth1);
         should.exist(stats.swaptotal);
         should.exist(stats.sample_time);
         should.exist(stats.swapfree);
@@ -171,8 +171,31 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should delete a scenario', function(done) {
-      done();
+    it('should stop a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.getRunningSession(function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        result.scenario_name.should.eql('test_runScenario()');
+        h.stopScenario(result.self, function(err, result) {
+          should.not.exist(err);
+          should.exist(result);
+          result.install_state.should.eql('UNINSTALLED');
+          done();
+        });
+      });
+    });
+
+    it('should delete a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.getScenarioByName('test_createScenario()', function(err, scenario) {
+        should.not.exist(err);
+        should.exist(scenario);
+        h.deleteScenario(scenario, function(err, result) {
+          should.not.exist(err);
+          done();
+        })
+      });
     });
 
   });

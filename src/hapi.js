@@ -40,6 +40,15 @@ obj.prototype = {
         cb(null, result);
       });
     }
+    else if (type === 'delete') {
+      rest.del(url).on('complete', function(result) {
+        if (result instanceof Error) {
+          console.log('Error: '+ result.message);
+          return cb(result);
+        }
+        cb(null, result);
+      });
+    }
   },
   getAPIVersion: function(cb) {
     var url = this.url;
@@ -254,10 +263,22 @@ obj.prototype = {
   },
   deleteScenario: function(scenario, cb) {
     var request = this.request;
-    var url = this.url;
     async.waterfall([
       function(cb) {
-        cb();
+        request(scenario, 'delete', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  stopScenario: function(scenario, cb) {
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(scenario, 'delete', cb);
       }
     ], function(err, result) {
       if(err) {
@@ -282,7 +303,27 @@ obj.prototype = {
       }
       cb(null, result);
     });
-  }
+  },
+  getRunningSession: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.sessions, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.running, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
 };
 
 module.exports = obj;
