@@ -102,7 +102,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
   });
-  describe('Client Mon: ', function() {
+  describe.skip('Client Mon: ', function() {
     it('should get the number of clients', function(done) {
       var h = new hapi(test.host);
       h.getNumClients(function(err, numclients) {
@@ -114,7 +114,7 @@ describe('Voisus HAPI: ', function () {
     });
   });
 
-  describe('Radio Mon: ', function() {
+  describe.skip('Radio Mon: ', function() {
     it('should get the number of radios', function(done) {
       var h = new hapi(test.host);
       h.getNumRadios(function(err, numradios) {
