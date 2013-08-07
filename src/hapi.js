@@ -304,26 +304,6 @@ obj.prototype = {
       cb(null, result);
     });
   },
-  /*getRunningSession: function(cb) {
-    var request = this.request;
-    var url = this.url;
-    async.waterfall([
-      function(cb) {
-        request(url, 'get', cb);
-      },
-      function(result, cb) {
-        request(result.sessions, 'get', cb);
-      },
-      function(result, cb) {
-        request(result.running, 'get', cb);
-      }
-    ], function(err, result) {
-      if(err) {
-        return cb(err);
-      }
-      cb(null, result);
-    });
-  },*/
 };
 
 module.exports = obj;
