@@ -194,7 +194,7 @@ describe('Voisus HAPI: ', function () {
         h.deleteScenario(scenario, function(err, result) {
           should.not.exist(err);
           done();
-        })
+        });
       });
     });
 

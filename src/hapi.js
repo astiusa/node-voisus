@@ -304,7 +304,7 @@ obj.prototype = {
       cb(null, result);
     });
   },
-  getRunningSession: function(cb) {
+  /*getRunningSession: function(cb) {
     var request = this.request;
     var url = this.url;
     async.waterfall([
@@ -323,7 +323,7 @@ obj.prototype = {
       }
       cb(null, result);
     });
-  },
+  },*/
 };
 
 module.exports = obj;
