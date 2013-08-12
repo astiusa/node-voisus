@@ -52,65 +52,139 @@ obj.prototype = {
   },
   getAPIVersion: function(cb) {
     var url = this.url;
-    this.request(url, 'get', function(err, result) {
-      cb(err, result.apiversion);
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.apiversion);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getVersion: function(cb) {
-    var url = this.url+'version/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.version, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getAboutMe: function(cb) {
-    var url = this.url+'aboutme/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.aboutme, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getPerfmon: function(cb) {
-    var url = this.url+'perfmon/';
-    this.request(url, 'get', function(err, result) {
-      if (err || !result || !result.stats) {
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.perfmon, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.stats);
+      }
+    ], function(err, result) {
+      if(err) {
         return cb(err);
       }
-      else {
-        cb(err, result.stats);
-      }
-    });
-  },
-  getRunningSession: function(cb) {
-    var url = this.url+'sessions/running/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+      cb(null, result);
     });
   },
   getRunlevel: function(cb) {
-    var url = this.url+'syspower/';
-    this.request(url, 'get', function(err, result) {
-      if (result) {
-        return cb(err, result.runlevel);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.syspower, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.runlevel);
       }
-      else {
+    ], function(err, result) {
+      if(err) {
         return cb(err);
       }
+      cb(null, result);
     });
   },
   reboot: function(cb) {
-    var url = this.url+'syspower/reboot/';
-    this.request(url, 'post', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.syspower, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.reboot, 'post', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getNumClients: function(cb) {
-    var url = this.url+'streams/clientmon/';
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        cb(result);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+    /*var url = this.url+'streams/clientmon/';
     var request = this.request;
     request(url, 'post', function(err, result) {
       if (err || !result || !result.state) {
         return cb(err);
       }
       cb(null, result.state.length);
-    });
+    });*/
   },
   getNumRadios: function(cb) {
     var url = this.url+'radiomon/subscriptions/';
@@ -151,10 +225,17 @@ obj.prototype = {
     });
   },
   getDownloadURLs: function(cb) {
-    var url = this.url+'downloads/';
+    var url = this.url;
     var request = this.request;
-    request(url, 'get', function(err, result) {
-      if (err || ! result.items) {
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.downloads, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err || ! result.items) {
         return cb(err);
       }
       cb(null, result.items);
@@ -296,6 +377,26 @@ obj.prototype = {
       },
       function(result, cb) {
         request(result.sessions, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getRunningSession: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.sessions, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.running, 'get', cb);
       }
     ], function(err, result) {
       if(err) {
