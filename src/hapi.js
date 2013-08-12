@@ -169,22 +169,29 @@ obj.prototype = {
         request(url, 'get', cb);
       },
       function(result, cb) {
-        cb(result);
+        request(result.streams, 'get', cb);
+      },
+      function(result, cb) {
+        var numClient;
+        for(var i in result.items)
+        {
+          if(result.items[i].name === 'Client_Monitor')
+          {
+            numClient = result.items[i].href;
+            break;
+          }
+        }
+        cb(null, numClient);
+      },
+      function(result, cb) {
+        request(result, 'post', cb);
       }
     ], function(err, result) {
-      if(err) {
-        return cb(err);
-      }
-      cb(null, result);
-    });
-    /*var url = this.url+'streams/clientmon/';
-    var request = this.request;
-    request(url, 'post', function(err, result) {
-      if (err || !result || !result.state) {
+      if(err || !result || !result.state) {
         return cb(err);
       }
       cb(null, result.state.length);
-    });*/
+    });
   },
   getNumRadios: function(cb) {
     var url = this.url+'radiomon/subscriptions/';
