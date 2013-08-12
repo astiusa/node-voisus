@@ -23,7 +23,7 @@ obj.prototype = {
       });
     }
     else if (type === 'post') {
-      rest.post(url).on('complete', function(result) {
+      rest.post(url, data, {parser: rest.parsers.json}).on('complete', function(result) {
         if (result instanceof Error) {
           console.log('Error: '+ result.message);
           return cb(result);
@@ -40,64 +40,154 @@ obj.prototype = {
         cb(null, result);
       });
     }
+    else if (type === 'delete') {
+      rest.del(url).on('complete', function(result) {
+        if (result instanceof Error) {
+          console.log('Error: '+ result.message);
+          return cb(result);
+        }
+        cb(null, result);
+      });
+    }
   },
   getAPIVersion: function(cb) {
     var url = this.url;
-    this.request(url, 'get', function(err, result) {
-      cb(err, result.apiversion);
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.apiversion);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getVersion: function(cb) {
-    var url = this.url+'version/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.version, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getAboutMe: function(cb) {
-    var url = this.url+'aboutme/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.aboutme, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getPerfmon: function(cb) {
-    var url = this.url+'perfmon/';
-    this.request(url, 'get', function(err, result) {
-      if (err || !result || !result.stats) {
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.perfmon, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.stats);
+      }
+    ], function(err, result) {
+      if(err) {
         return cb(err);
       }
-      else {
-        cb(err, result.stats);
-      }
-    });
-  },
-  getRunningSession: function(cb) {
-    var url = this.url+'sessions/running/';
-    this.request(url, 'get', function(err, result) {
-      cb(err, result);
+      cb(null, result);
     });
   },
   getRunlevel: function(cb) {
-    var url = this.url+'syspower/';
-    this.request(url, 'get', function(err, result) {
-      if (result) {
-        return cb(err, result.runlevel);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.syspower, 'get', cb);
+      },
+      function(result, cb) {
+        cb(null, result.runlevel);
       }
-      else {
+    ], function(err, result) {
+      if(err) {
         return cb(err);
       }
+      cb(null, result);
     });
   },
   reboot: function(cb) {
-    var url = this.url+'syspower/reboot/';
-    this.request(url, 'post', function(err, result) {
-      cb(err, result);
+    var url = this.url;
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.syspower, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.reboot, 'post', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
     });
   },
   getNumClients: function(cb) {
-    var url = this.url+'streams/clientmon/';
+    var url = this.url;
     var request = this.request;
-    request(url, 'post', function(err, result) {
-      if (err || !result || !result.state) {
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.streams, 'get', cb);
+      },
+      function(result, cb) {
+        var numClient;
+        for(var i in result.items)
+        {
+          if(result.items[i].name === 'Client_Monitor')
+          {
+            numClient = result.items[i].href;
+            break;
+          }
+        }
+        cb(null, numClient);
+      },
+      function(result, cb) {
+        request(result, 'post', cb);
+      }
+    ], function(err, result) {
+      if(err || !result || !result.state) {
         return cb(err);
       }
       cb(null, result.state.length);
@@ -142,15 +232,186 @@ obj.prototype = {
     });
   },
   getDownloadURLs: function(cb) {
-    var url = this.url+'downloads/';
+    var url = this.url;
     var request = this.request;
-    request(url, 'get', function(err, result) {
-      if (err || ! result.items) {
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.downloads, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err || ! result.items) {
         return cb(err);
       }
       cb(null, result.items);
     });
-  }
+  },
+  getScenarioByName: function(scenarioName, cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'get', cb);
+      },
+      function(result, cb) {
+        var session;
+        for(var i in result.items)
+        {
+          if(result.items[i].name === scenarioName)
+          {
+            session = result.items[i].self;
+            break;
+          }
+        }
+        cb(null, session);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getScenarios: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  createScenario: function(scenarioName, cb) {
+    var request = this.request;
+    var url =  this.url;
+    var data = {data: {
+      name: scenarioName
+      }
+    };
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.scenarios, 'post', data, cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  runScenario: function(scenarioName, cb) {
+    var request = this.request;
+    var url = this.url;
+    var self = this;
+    var sessionURL;
+    var data = {};
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        sessionURL = result.sessions;
+        request(result.scenarios, 'get', cb);
+      },
+      function(result, cb) {
+        self.getScenarioByName(scenarioName, cb);
+      },
+      function(result, cb) {
+        data = {data: {
+          scenario: result
+          }
+        };
+        request(sessionURL, 'post', data, cb);
+      },
+      function(result, cb) {
+        cb();
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  deleteScenario: function(scenario, cb) {
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(scenario, 'delete', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  stopScenario: function(scenario, cb) {
+    var request = this.request;
+    async.waterfall([
+      function(cb) {
+        request(scenario, 'delete', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getSessions: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.sessions, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
+  getRunningSession: function(cb) {
+    var request = this.request;
+    var url = this.url;
+    async.waterfall([
+      function(cb) {
+        request(url, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.sessions, 'get', cb);
+      },
+      function(result, cb) {
+        request(result.running, 'get', cb);
+      }
+    ], function(err, result) {
+      if(err) {
+        return cb(err);
+      }
+      cb(null, result);
+    });
+  },
 };
 
 module.exports = obj;
