@@ -2,7 +2,8 @@ var should = require('should');
 var hapi = require('../src/hapi');
 
 var test = {
-  host: "166.78.248.5",
+  //host: "166.78.248.5",
+  host: "10.26.4.113",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -70,7 +71,7 @@ describe('Voisus HAPI: ', function () {
         should.exist(stats);
         should.exist(stats.memfree);
         should.exist(stats.memtotal);
-        should.exist(stats.eth1);
+        //should.exist(stats.eth1);
         should.exist(stats.swaptotal);
         should.exist(stats.sample_time);
         should.exist(stats.swapfree);
@@ -101,7 +102,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
   });
-  describe('Client Mon: ', function() {
+  describe.skip('Client Mon: ', function() {
     it('should get the number of clients', function(done) {
       var h = new hapi(test.host);
       h.getNumClients(function(err, numclients) {
@@ -113,7 +114,7 @@ describe('Voisus HAPI: ', function () {
     });
   });
 
-  describe('Radio Mon: ', function() {
+  describe.skip('Radio Mon: ', function() {
     it('should get the number of radios', function(done) {
       var h = new hapi(test.host);
       h.getNumRadios(function(err, numradios) {
@@ -123,6 +124,88 @@ describe('Voisus HAPI: ', function () {
         //onsole.log(numradios[0]);
         //console.log(JSON.parse(numradios[0]));
         //numradios.should.eql(4);
+        done();
+      });
+    });
+  });
+
+  describe('Scenario: ', function() {
+    it('should get all the scenarios', function(done) {
+      var h = new hapi(test.host);
+      h.getScenarios(function(err, scenarios) {
+        should.not.exist(err);
+        should.exist(scenarios);
+        should.exist(scenarios.templates);
+        should.exist(scenarios.items);
+        done();
+      });
+    });
+
+    it('should create a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.createScenario('test_createScenario()', function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        done();
+      });
+    });
+
+    it('should get scenario by name', function(done) {
+      var h = new hapi(test.host);
+      h.getScenarioByName('test_createScenario()', function(err, scenario) {
+        should.not.exist(err);
+        should.exist(scenario);
+        done();
+      });
+    });
+
+    it('should run a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.createScenario('test_runScenario()', function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        h.runScenario('test_runScenario()', function(err, result) {
+          should.not.exist(err);
+          done();
+        });
+      });
+    });
+
+    it('should stop a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.getRunningSession(function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
+        result.scenario_name.should.eql('test_runScenario()');
+        h.stopScenario(result.self, function(err, result) {
+          should.not.exist(err);
+          should.exist(result);
+          result.install_state.should.eql('UNINSTALLED');
+          done();
+        });
+      });
+    });
+
+    it('should delete a scenario', function(done) {
+      var h = new hapi(test.host);
+      h.getScenarioByName('test_createScenario()', function(err, scenario) {
+        should.not.exist(err);
+        should.exist(scenario);
+        h.deleteScenario(scenario, function(err, result) {
+          should.not.exist(err);
+          done();
+        });
+      });
+    });
+
+  });
+
+  describe('Session: ', function() {
+    it('should get sessions', function(done) {
+      var h = new hapi(test.host);
+      h.getSessions(function(err, result) {
+        should.not.exist(err);
+        should.exist(result);
         done();
       });
     });
