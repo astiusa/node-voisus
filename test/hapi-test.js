@@ -201,7 +201,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should create a scenario', function(done) {
+    it('should create a scenario', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -217,7 +217,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should get scenario by name', function(done) {
+    it('should get scenario by name', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -236,19 +236,21 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should run a scenario by name', function(done) {
+    it('should run a scenario by name', function(done) {
       var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
       async.waterfall([
         function(cb) {
           h.scenarios.createScenario('test_runScenarioByName()', cb);
         },
         function(result, cb) {
           should.exist(result);
+          scenarioURL = result.self;
           h.scenarios.runScenarioByName('test_runScenarioByName()', cb);
         },
         function(result, cb) {
           should.exist(result);
-          h.scenarios.deleteScenario(result.self, cb);
+          h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -256,19 +258,21 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should run a scenario', function(done) {
+    it('should run a scenario', function(done) {
       var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
       async.waterfall([
         function(cb) {
           h.scenarios.createScenario('test_runScenario()', cb);
         },
         function(result, cb) {
           should.exist(result);
+          scenarioURL = result.self
           h.scenarios.runScenario(result.self, cb);
         },
         function(result, cb) {
           should.exist(result);
-          h.scenarios.deleteScenario(result.self, cb);
+          h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -276,14 +280,55 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should stop a scenario', function(done) {
+    it('should run an async scenario', function(done) {
       var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      var count = 0;
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_runAsyncScenario()', cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          scenarioURL =  result.self;
+          h.scenarios.runAsyncScenario(result.self, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          async.whilst(
+            function() {
+              return count < 30;
+            },
+            function(callback) {
+              count++;
+              h.sessions.getRunningSession(function(err, data) {
+                if(data.install_state === "INSTALLING" && data.install_status[0] > 1) {
+                  count += 30;
+                }
+              });
+              setTimeout(callback, 500);
+            }, function(err) {
+              should.not.exist(err);
+              h.scenarios.deleteScenario(scenarioURL, cb);
+            }
+          );
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should stop a scenario', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
       async.waterfall([
         function(cb) {
           h.scenarios.createScenario('test_stopScenario()', cb);
         },
         function(result, cb) {
           should.exist(result);
+          scenarioURL = result.self;
           h.scenarios.runScenario(result.self, cb);
         },
         function(result, cb) {
@@ -293,7 +338,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.install_state.should.eql('UNINSTALLED');
-          cb();
+          h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -301,7 +346,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should delete a scenario', function(done) {
+    it('should delete a scenario', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -341,21 +386,10 @@ describe('Voisus HAPI: ', function () {
     it('should post dis domains', function(done) {
       var h = nVoisus.createHapi(test.host);
       var scenarioURL = "";
-      var data = {
-        "parent": null,
-        "data_type": "dis_domains",
-        "rev": "1-8d68615abb1767ba50a97b88a1b485d9",
-        "self": "https://10.26.4.113/api/scenarios/156fde9ca990423a9e2be8d9798ea350/dis_domains/57807ac7c94c4dc59bf26a5332f82651/",
-        "editable": true,
-        "name": "HAPI",
-        "version": "v5.13.0-178-g6fff5b37",
-        "id": "57807ac7c94c4dc59bf26a5332f82651",
-        "exercise": 0,
-        "description": ""
-      };
+      var data = {name: "HAPI"};
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_putDis()', cb);
+          h.scenarios.createScenario('test_putDisDomains()', cb);
         },
         function(result, cb) {
           scenarioURL = result.self;
@@ -363,6 +397,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
+          result.name.should.eql(data.name);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
@@ -428,40 +463,7 @@ describe('Voisus HAPI: ', function () {
 
     it('should put dis', function(done) {
       var data = {
-        "dis_moving_threshold": 500,
-        "rev": "1-c9021ea1437fd4beb2aa6bab624a7154",
-        "pdu_signal": "broadcast",
-        "dis_timeout_moving": 2,
-        "mcast_addr": "",
-        "id": "dis",
-        "description": "HAPI",
-        "pdu_rx": "broadcast",
-        "parent": null,
-        "self": "https://10.26.4.113/api/scenarios/1139c2676665411c9fb3fcb6b4a7b464/dis/",
-        "pdu_entity_mcast_addr": "",
-        "ip_mode": "broadcast",
-        "pdu_tx_mcast_addr": "",
-        "dis_app_id": 0,
-        "version": "v5.13.0-178-g6fff5b37",
-        "ucast_addr": "",
-        "pdu_tx": "broadcast",
-        "pdu_signal_mcast_addr": "",
-        "dis_site_id": 0,
-        "mcast_addr_start": "",
-        "network_modulations": {},
-        "data_type": "dis",
-        "setup_type": "basic",
-        "udp_port": 3000,
-        "dis_timeout_normal": 5,
-        "pdu_entity": "broadcast",
-        "domain_exid_map": {},
-        "dis_id_mode": "derived",
-        "pdu_rx_mcast_addr": "",
-        "name": "",
-        "dis_version": 6,
-        "radio_tx_period": 20,
-        "radio_holdoff": 24,
-        "eth": "eth0"
+        udp_port: 3002
       };
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
@@ -475,16 +477,14 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          console.log(result);
-          //h.scenarios.deleteScenario(scenarioURL, cb);
-          cb();
+          result.udp_port.should.eql(3002);
+          h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
         should.not.exist(err);
         done();
       });
     });
-
   });
 
   describe('Session: ', function() {
@@ -548,7 +548,6 @@ describe('Voisus HAPI: ', function () {
           h.generateSOS(cb);
         },
         function(result, cb) {
-          should.exist(result);
           cb();
         }
       ], function(err) {
@@ -595,7 +594,7 @@ describe('Voisus HAPI: ', function () {
     });
 
     it.skip('should change cloudId', function(done) {
-      var cloudId = "10_26_5_16";
+      var cloudId = "10_26_5_166";
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
