@@ -24,7 +24,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.should.equal(1);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -49,7 +49,7 @@ describe('Voisus HAPI: ', function () {
           should.exist(result.time);
           should.exist(result.release);
           should.exist(result.commit);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -75,7 +75,7 @@ describe('Voisus HAPI: ', function () {
           result.contact_name.should.eql('ASTi Sales');
           should.exist(result.description);
           result.description.should.eql('HearVoisus Server');
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -101,7 +101,7 @@ describe('Voisus HAPI: ', function () {
           should.exist(result.swapfree);
           should.exist(result.cpu0);
           should.exist(result.eth0);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -120,7 +120,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.should.eql('3');
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -151,7 +151,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.should.eql(1);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -173,7 +173,7 @@ describe('Voisus HAPI: ', function () {
           //console.log(result[0]);
           //console.log(JSON.parse(result[0]));
           //result.should.eql(4);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -193,7 +193,7 @@ describe('Voisus HAPI: ', function () {
           should.exist(result);
           should.exist(result.templates);
           should.exist(result.items);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -236,7 +236,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should run a scenario by name', function(done) {
+    it('should run a 1scenario by name', function(done) {
       var h = nVoisus.createHapi(test.host);
       var scenarioURL = "";
       async.waterfall([
@@ -567,7 +567,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.only('should del dis', function(done) {
+    it('should del dis', function(done) {
       var data = {udp_port: 3005};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
@@ -590,6 +590,949 @@ describe('Voisus HAPI: ', function () {
 
   });
 
+  describe.skip('Services: ', function() {
+    it('should get services', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getServices(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result['ace-ae-hw']);
+          should.exist(result['anzac']);
+          should.exist(result['ace-radiomon-server']);
+          should.exist(result['ace-cfimaster']);
+          should.exist(result['ace-netmon']);
+          should.exist(result['ace-ae-sw']);
+          should.exist(result['ace-g-workload']);
+          should.exist(result['ace-radio']);
+          should.exist(result['ace-ae-construct']);
+          should.exist(result['ace-rootd']);
+          should.exist(result['ace-ae-loader']);
+          should.exist(result['ace-creditd']);
+          should.exist(result['simscribe']);
+          should.exist(result['ace-operator']);
+          should.exist(result['ace-ams-web']);
+          should.exist(result['ace-ae']);
+          should.exist(result['ace-rc']);
+          should.exist(result['ace-construct']);
+          should.exist(result['ace-hwdebug']);
+          should.exist(result['ace-hapi']);
+          should.exist(result['ace-hwrt']);
+          should.exist(result['ace-credit-net']);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+  
+    it('should get ace-ae-hw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAeHw(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ae-hw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAeHw(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ae-hw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAeHw(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get anzac', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAnzac(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete anzac', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAnzac(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put anzac', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAnzac(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-radiomon-server', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceRadiomonServer(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-radiomon-server', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceRadiomonServer(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-radiomon-server', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceRadiomonServer(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-cfimaster', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceCfimaster(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-cfimaster', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceCfimaster(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-cfimaster', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceCfimaster(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-netmon', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceNetmon(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-netmon', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceNetmon(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-netmon', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceNetmon(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-ae-sw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAeSw(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ae-sw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAeSw(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ae-sw', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAeSw(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-g-workload', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceGWorkload(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-g-workload', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceGWorkload(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-g-workload', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceGWorkload(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-radio', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceRadio(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-radio', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceRadio(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-radio', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceRadio(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-ae-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAeConstruct(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ae-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAeConstruct(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ae-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAeConstruct(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-rootd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceRootD(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-rootd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceRootD(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-rootd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceRootD(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-ae-loader', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAeLoader(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ae-loader', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAeLoader(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ae-loader', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAeLoader(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-creditd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceCreditD(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-creditd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceCreditD(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-creditd', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceCreditD(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get simscribe', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getSimscribe(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete simscribe', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delSimscribe(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put simscribe', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putSimscribe(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-operator', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceOperator(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-operator', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceOperator(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-operator', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceOperator(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-ams-web', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAmsWeb(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ams-web', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAmsWeb(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ams-web', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAmsWeb(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-ae', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceAe(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-ae', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceAe(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-ae', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceAe(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-rc', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceRc(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-rc', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceRc(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-rc', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceRc(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });    
+
+    it('should get ace-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceContruct(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceContruct(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-construct', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceContruct(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-hwdebug', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceHwDebug(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-hwdebug', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceHwDebug(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-hwdebug', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceHwDebug(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-hapi', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceHapi(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-hapi', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceHapi(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-hapi', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceHapi(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-hwrt', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceHwRt(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-hwrt', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceHwRt(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-hwrt', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceHwRt(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-credit-net', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.getAceCreditNet(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.status);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should delete ace-credit-net', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.delAceCreditNet(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put ace-credit-net', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.services.putAceCreditNet(cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+  });
+
   describe('Session: ', function() {
     it('should get sessions', function(done) {
       var h = nVoisus.createHapi(test.host);
@@ -600,7 +1543,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           should.exist(result.items);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -616,7 +1559,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -634,7 +1577,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -654,7 +1597,7 @@ describe('Voisus HAPI: ', function () {
           should.exist(result);
           should.exist(result.all);
           should.exist(result.self);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -671,7 +1614,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -693,7 +1636,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.should.eql(cloudId);
-          cb();
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
