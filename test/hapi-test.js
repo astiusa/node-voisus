@@ -267,7 +267,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          scenarioURL = result.self
+          scenarioURL = result.self;
           h.scenarios.runScenario(result.self, cb);
         },
         function(result, cb) {
@@ -375,6 +375,14 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
+          should.exist(result.items[0].data_type);
+          should.exist(result.items[0].rev);
+          should.exist(result.items[0].self);
+          should.exist(result.items[0].editable);
+          should.exist(result.items[0].name);
+          should.exist(result.items[0].version);
+          should.exist(result.items[0].id);
+          should.exist(result.items[0].exercise);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
@@ -383,7 +391,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should post dis domains', function(done) {
+    it('should put dis domains', function(done) {
       var h = nVoisus.createHapi(test.host);
       var scenarioURL = "";
       var data = {name: "HAPI"};
@@ -398,6 +406,59 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           result.name.should.eql(data.name);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post dis domains', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      var data = {name: "HAPI"};
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postDisDomains()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.postDisDomains(scenarioURL, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should del dis domains', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      var disDomain = "";
+      var data = {name: "HAPI"};
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_delDisDomains()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.postDisDomains(scenarioURL, data, cb);
+        },
+        function(result, cb) {
+          disDomain = result.self;
+          h.scenarios.delDisDomains(disDomain, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getDisDomains(scenarioURL, cb);
+        },
+        function(result, cb) {
+          for(var i = 0; i < result.items.length; i++) {
+            result.items[i].name.should.not.eql(data.name);
+          }
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
@@ -462,9 +523,7 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should put dis', function(done) {
-      var data = {
-        udp_port: 3002
-      };
+      var data = {udp_port: 3002};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
@@ -485,6 +544,50 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
+
+    it.skip('should post dis', function(done) {
+      var data = {udp_port: 3005};
+      var scenarioURL = "";
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postDis()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.postDis(scenarioURL, data, cb);
+        },
+        function(result, cb) {
+          console.log(result);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it.only('should del dis', function(done) {
+      var data = {udp_port: 3005};
+      var scenarioURL = "";
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postDis()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.delDis(scenarioURL, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
   });
 
   describe('Session: ', function() {
@@ -531,23 +634,6 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          cb();
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-  });
-
-  describe('SOS: ', function() {
-    it('should generate an SOS report', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.generateSOS(cb);
-        },
-        function(result, cb) {
           cb();
         }
       ], function(err) {
