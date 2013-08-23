@@ -3,8 +3,8 @@
   "version": "0.0.3",
   "private": true,
   "scripts": {
-    "start": "node ./src/voisus.js",
-    "test": "mocha --timeout 10000"
+    "start": "node index.js",
+    "test": "mocha -R spec --timeout 15000"
   },
   "dependencies": {
     "jsonify": "*",
@@ -16,7 +16,7 @@
     "should": "*"
   },
   "directories": {
-    "lib": "./src"
+    "lib": "./lib/"
   },
-  "main": "./src/voisus.js"
+  "main": "./lib/node-voisus"
 }
