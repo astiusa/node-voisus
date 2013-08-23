@@ -646,7 +646,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ae-hw', function(done) {
+    it.skip('should delete ace-ae-hw', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -658,7 +658,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ae-hw', function(done) {
+    it.skip('should put ace-ae-hw', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -687,7 +687,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete anzac', function(done) {
+    it.skip('should delete anzac', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -699,7 +699,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put anzac', function(done) {
+    it.skip('should put anzac', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -728,7 +728,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-radiomon-server', function(done) {
+    it.skip('should delete ace-radiomon-server', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -740,7 +740,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-radiomon-server', function(done) {
+    it.skip('should put ace-radiomon-server', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -769,7 +769,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-cfimaster', function(done) {
+    it.skip('should delete ace-cfimaster', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -781,7 +781,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-cfimaster', function(done) {
+    it.skip('should put ace-cfimaster', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -810,7 +810,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-netmon', function(done) {
+    it.skip('should delete ace-netmon', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -822,7 +822,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-netmon', function(done) {
+    it.skip('should put ace-netmon', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -851,7 +851,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ae-sw', function(done) {
+    it.skip('should delete ace-ae-sw', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -863,7 +863,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ae-sw', function(done) {
+    it.skip('should put ace-ae-sw', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -892,7 +892,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-g-workload', function(done) {
+    it.skip('should delete ace-g-workload', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -904,7 +904,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-g-workload', function(done) {
+    it.skip('should put ace-g-workload', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -933,7 +933,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-radio', function(done) {
+    it.skip('should delete ace-radio', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -945,7 +945,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-radio', function(done) {
+    it.skip('should put ace-radio', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -974,7 +974,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ae-construct', function(done) {
+    it.skip('should delete ace-ae-construct', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -986,7 +986,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ae-construct', function(done) {
+    it.skip('should put ace-ae-construct', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1015,7 +1015,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-rootd', function(done) {
+    it.skip('should delete ace-rootd', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1027,7 +1027,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-rootd', function(done) {
+    it.skip('should put ace-rootd', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1056,7 +1056,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ae-loader', function(done) {
+    it.skip('should delete ace-ae-loader', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1068,7 +1068,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ae-loader', function(done) {
+    it.skip('should put ace-ae-loader', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1097,7 +1097,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-creditd', function(done) {
+    it.skip('should delete ace-creditd', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1109,7 +1109,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-creditd', function(done) {
+    it.skip('should put ace-creditd', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1138,7 +1138,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete simscribe', function(done) {
+    it.skip('should delete simscribe', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1150,7 +1150,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put simscribe', function(done) {
+    it.skip('should put simscribe', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1179,7 +1179,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-operator', function(done) {
+    it.skip('should delete ace-operator', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1191,7 +1191,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-operator', function(done) {
+    it.skip('should put ace-operator', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1220,7 +1220,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ams-web', function(done) {
+    it.skip('should delete ace-ams-web', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1232,7 +1232,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ams-web', function(done) {
+    it.skip('should put ace-ams-web', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1261,7 +1261,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-ae', function(done) {
+    it.skip('should delete ace-ae', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1273,7 +1273,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-ae', function(done) {
+    it.skip('should put ace-ae', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1302,7 +1302,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-rc', function(done) {
+    it.skip('should delete ace-rc', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1314,7 +1314,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-rc', function(done) {
+    it.skip('should put ace-rc', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1343,7 +1343,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-construct', function(done) {
+    it.skip('should delete ace-construct', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1355,7 +1355,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-construct', function(done) {
+    it.skip('should put ace-construct', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1384,7 +1384,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-hwdebug', function(done) {
+    it.skip('should delete ace-hwdebug', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1396,7 +1396,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-hwdebug', function(done) {
+    it.skip('should put ace-hwdebug', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1425,7 +1425,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-hapi', function(done) {
+    it.skip('should delete ace-hapi', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1437,7 +1437,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-hapi', function(done) {
+    it.skip('should put ace-hapi', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1466,7 +1466,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-hwrt', function(done) {
+    it.skip('should delete ace-hwrt', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1478,7 +1478,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-hwrt', function(done) {
+    it.skip('should put ace-hwrt', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1507,7 +1507,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete ace-credit-net', function(done) {
+    it.skip('should delete ace-credit-net', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1519,7 +1519,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should put ace-credit-net', function(done) {
+    it.skip('should put ace-credit-net', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
