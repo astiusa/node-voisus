@@ -401,10 +401,12 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           scenarioURL = result.self;
-          h.scenarios.putDisDomains(scenarioURL, data, cb);
+          h.scenarios.getDisDomains(scenarioURL, cb);
         },
         function(result, cb) {
-          should.exist(result);
+          h.scenarios.putDisDomains(result.items[0].self, data, cb);
+        },
+        function(result, cb) {
           result.name.should.eql(data.name);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
@@ -424,9 +426,13 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           scenarioURL = result.self;
-          h.scenarios.postDisDomains(scenarioURL, data, cb);
+          h.scenarios.getDisDomains(scenarioURL, cb);
         },
         function(result, cb) {
+          h.scenarios.postDisDomains(result.self, data, cb);
+        },
+        function(result, cb) {
+          result.name.should.eql(data.name);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
@@ -446,6 +452,9 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           scenarioURL = result.self;
+          h.scenarios.getDisDomains(scenarioURL, cb);
+        },
+        function(result, cb) {
           h.scenarios.postDisDomains(scenarioURL, data, cb);
         },
         function(result, cb) {
@@ -532,7 +541,10 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           scenarioURL = result.self;
-          h.scenarios.putDis(scenarioURL, data, cb);
+          h.scenarios.getDis(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.putDis(result.self, data, cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -545,7 +557,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should post dis', function(done) {
+    it.skip('should post 1dis', function(done) {
       var data = {udp_port: 3005};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
@@ -555,10 +567,12 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           scenarioURL = result.self;
+          h.scenarios.getDis(scenarioURL, cb);
+        },
+        function(result, cb) {
           h.scenarios.postDis(scenarioURL, data, cb);
         },
         function(result, cb) {
-          console.log(result);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
@@ -568,18 +582,48 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should del dis', function(done) {
-      var data = {udp_port: 3005};
+      var data = {udp_port: ''};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_postDis()', cb);
+          h.scenarios.createScenario('test_delDis()', cb);
         },
         function(result, cb) {
           scenarioURL = result.self;
-          h.scenarios.delDis(scenarioURL, data, cb);
+          h.scenarios.getDis(scenarioURL, cb);
         },
         function(result, cb) {
+          h.scenarios.delDis(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getDis(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.items.length.should.eql(0);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it.only('should get nets', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_getNets()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getNets(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          console.log(result);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
