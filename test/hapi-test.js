@@ -846,8 +846,20 @@ describe('Voisus HAPI: ', function () {
           h.scenarios.getRolesGenericRadio(result.self, cb);
         },
         function(result, cb) {
-          console.log(result);
           cb();
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get scenario id', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL;
+      async.waterfall([
+        function(cb) {
+          h.scenarios.getScenariosId(cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -868,7 +880,6 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          console.log(result);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
