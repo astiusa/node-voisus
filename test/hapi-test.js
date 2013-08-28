@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "10.26.4.113",
+  host: "192.237.183.61",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -41,7 +41,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           should.exist(result.product);
-          result.product.should.eql('Voisus Server');
+          result.product.should.eql('Voisus Server International');
           should.exist(result.builddate);
           should.exist(result.os_version);
           should.exist(result.version);
@@ -557,7 +557,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.skip('should post 1dis', function(done) {
+    it('should post dis', function(done) {
       var data = {udp_port: 3005};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
@@ -570,7 +570,7 @@ describe('Voisus HAPI: ', function () {
           h.scenarios.getDis(scenarioURL, cb);
         },
         function(result, cb) {
-          h.scenarios.postDis(scenarioURL, data, cb);
+          h.scenarios.postDis(result.self, data, cb);
         },
         function(result, cb) {
           h.scenarios.deleteScenario(scenarioURL, cb);
@@ -582,7 +582,6 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should del dis', function(done) {
-      var data = {udp_port: ''};
       var scenarioURL = "";
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
@@ -594,7 +593,7 @@ describe('Voisus HAPI: ', function () {
           h.scenarios.getDis(scenarioURL, cb);
         },
         function(result, cb) {
-          h.scenarios.delDis(result.self, data, cb);
+          h.scenarios.delDis(result.self, cb);
         },
         function(result, cb) {
           h.scenarios.getDis(scenarioURL, cb);
@@ -610,7 +609,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.only('should get nets', function(done) {
+    it('should get nets', function(done) {
       var h = nVoisus.createHapi(test.host);
       var scenarioURL = "";
       async.waterfall([
@@ -623,7 +622,337 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post nets', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postNets()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getNets(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postNets(result.self, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql(data.name);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put nets', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_putNets()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getNets(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postNets(result.self, data, cb);
+        },
+        function(result, cb) {
+          data.name = 'UNHAPI';
+          h.scenarios.putNets(result.self, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql(data.name);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should del nets', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_delNets()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getNets(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postNets(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.delNets(result.self, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getNets(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.items.length.should.eql(0);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get roles', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_getRoles()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post roles', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postRoles()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql(data.name);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put roles', function(done) {
+      var data = {name: 'HAPI', chat_enabled: false};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_putRoles()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          data.name = 'UNHAPI';
+          h.scenarios.putRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql(data.name);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should del roles', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_delRoles()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.delRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.items.length.should.eql(0);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post radio', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getRoles(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postRoles(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getRolesGenericRadio(result.self, cb);
+        },
+        function(result, cb) {
           console.log(result);
+          cb();
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get fills', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_getFills()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getFills(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          console.log(result);
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+    
+    it('should post fills', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_postFills()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getFills(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postFills(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put fills', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_putFills()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getFills(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postFills(result.self, data, cb);
+        },
+        function(result, cb) {
+          data.name = 'UNHAPI';
+          h.scenarios.putFills(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.deleteScenario(scenarioURL, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should del fills', function(done) {
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      var scenarioURL = "";
+      async.waterfall([
+        function(cb) {
+          h.scenarios.createScenario('test_delFills()', cb);
+        },
+        function(result, cb) {
+          scenarioURL = result.self;
+          h.scenarios.getFills(scenarioURL, cb);
+        },
+        function(result, cb) {
+          h.scenarios.postFills(result.self, data, cb);
+        },
+        function(result, cb) {
+          h.scenarios.delFills(result.self, cb);
+        },
+        function(result, cb) {
+          h.scenarios.getFills(scenarioURL, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.items.length.should.eql(0);
           h.scenarios.deleteScenario(scenarioURL, cb);
         }
       ], function(err) {
