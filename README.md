@@ -11,22 +11,24 @@ var nVoisus = require('.././lib/node-voisus');
 ```
 
 #### createHapi();
-`params:`	IPAddress
+`params:` IPAddress
+
 `returns:`	Hapi object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 ```
 
-### getAPIVersion(cb);
+#### getAPIVersion(cb);
 `params:`	callback
-`returns:`	cb(err, string) API version
+
+`returns:`	API version
 ```javascript
 hapi.getAPIVersion(function(err, result) {...});
 ```
 
-### getVersion(cb);
+#### getVersion(cb);
 `params:`	callback
-`returns:`	cb(err, obj) server version information
+`returns:`	server version information
 ```javascript
 hapi.getVersion(function(err, result) {...});
 ```
