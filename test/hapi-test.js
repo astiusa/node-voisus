@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "192.237.183.61",
+  host: "162.209.13.245",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -19,7 +19,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getAPIVersion(cb);
+          h.getApiVersion(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -127,13 +127,18 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
+  });
 
-    // reboot is broken, never returns data
-    it.skip('should reboot the box', function(done) {
+  describe('Download cleints: ', function() {
+    it('should get the download clients url', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.reboot(cb);
+          h.getDownloadURLs(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -141,44 +146,16 @@ describe('Voisus HAPI: ', function () {
       });
     });
   });
+
   describe.skip('Client Mon: ', function() {
     it('should get the number of clients', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.getNumClients(cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          result.should.eql(1);
-          cb(null);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
+      done();
     });
   });
 
   describe.skip('Radio Mon: ', function() {
     it('should get the number of radios', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.getNumRadios(cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          result.should.eql(5);
-          //console.log(result[0]);
-          //console.log(JSON.parse(result[0]));
-          //result.should.eql(4);
-          cb(null);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
+      done();
     });
   });
 
@@ -187,12 +164,10 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.getScenarios(cb);
+          h.getScenarios(cb);
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result.templates);
-          should.exist(result.items);
           cb(null);
         }
       ], function(err) {
@@ -205,52 +180,13 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_createScenario()', cb);
+          h.createScenario('createScenario()', cb);
         },
         function(result, cb) {
           should.exist(result);
-          h.scenarios.deleteScenario(result.self, cb);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-
-    it('should get scenario by name', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.scenarios.createScenario('test_getScenarioByName()', cb);
-        },
-        function(result, cb) {
-          h.scenarios.getScenarioByName('test_getScenarioByName()', cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          h.scenarios.deleteScenario(result, cb);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-
-    it('should run a 1scenario by name', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
-      async.waterfall([
-        function(cb) {
-          h.scenarios.createScenario('test_runScenarioByName()', cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          scenarioURL = result.self;
-          h.scenarios.runScenarioByName('test_runScenarioByName()', cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          should.exist(result._scnId);
+          should.exist(result._scnUrl);
+          h.deleteScenario(result._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -259,20 +195,24 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should run a scenario', function(done) {
+      var scn;
       var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_runScenario()', cb);
+          h.createScenario('runScenario()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          h.runScenario(result._scnId, cb);
         },
         function(result, cb) {
           should.exist(result);
-          scenarioURL = result.self;
-          h.scenarios.runScenario(result.self, cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          should.exist(result.id);
+          should.exist(result.name);
+          should.exist(result.session);
+          should.exist(result.host);
+          should.exist(result.state);
+          h.deleteScenario(result.id, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -281,17 +221,16 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should run an async scenario', function(done) {
+      var scn;
       var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
       var count = 0;
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_runAsyncScenario()', cb);
+          h.createScenario('runAsyncScenario()', cb);
         },
         function(result, cb) {
-          should.exist(result);
-          scenarioURL =  result.self;
-          h.scenarios.runAsyncScenario(result.self, cb);
+          scn = result;
+          h.runAsyncScenario(result._scnId, cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -301,15 +240,15 @@ describe('Voisus HAPI: ', function () {
             },
             function(callback) {
               count++;
-              h.sessions.getRunningSession(function(err, data) {
-                if(data.install_state === "INSTALLING" && data.install_status[0] > 1) {
+              h.getRunningSession(function(err, data) {
+                if(data.state === "INSTALLING" && data.percent > 1) {
                   count += 30;
                 }
               });
               setTimeout(callback, 500);
             }, function(err) {
               should.not.exist(err);
-              h.scenarios.deleteScenario(scenarioURL, cb);
+              h.deleteScenario(scn._scnId, cb);
             }
           );
         }
@@ -320,25 +259,23 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should stop a scenario', function(done) {
+      var scn;
       var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_stopScenario()', cb);
+          h.createScenario('stopScenario()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          h.runScenario(scn._scnId, cb);
+        },
+        function(result, cb) {
+          h.stopScenario(result.id, cb);
         },
         function(result, cb) {
           should.exist(result);
-          scenarioURL = result.self;
-          h.scenarios.runScenario(result.self, cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          h.scenarios.stopScenario(result.self, cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          result.install_state.should.eql('UNINSTALLED');
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          result.state.should.eql('UNINSTALLED');
+          h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -347,14 +284,19 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should delete a scenario', function(done) {
+      var scn;
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_deleteScenario()', cb);
+          h.createScenario('deleteScenario()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          h.deleteScenario(scn._scnId, cb);
         },
         function(result, cb) {
           should.exist(result);
-          h.scenarios.deleteScenario(result.self, cb);
+          cb(null);
         }
       ], function(err) {
         should.not.exist(err);
@@ -363,27 +305,19 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should get dis domains', function(done) {
+      var scn;
       var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_getDisDomains()', cb);
+          h.createScenario('getDisDomains()', cb);
         },
         function(result, cb) {
-          scenarioURL = result.self;
-          h.scenarios.getDisDomains(scenarioURL, cb);
+          scn = result;
+          scn.getDisDomains(cb);
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result.items[0].data_type);
-          should.exist(result.items[0].rev);
-          should.exist(result.items[0].self);
-          should.exist(result.items[0].editable);
-          should.exist(result.items[0].name);
-          should.exist(result.items[0].version);
-          should.exist(result.items[0].id);
-          should.exist(result.items[0].exercise);
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -392,23 +326,25 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should put dis domains', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
+      var scn, dDomId;
       var data = {name: "HAPI"};
+      var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_putDisDomains()', cb);
+          h.createScenario('putDisDomains()', cb);
         },
         function(result, cb) {
-          scenarioURL = result.self;
-          h.scenarios.getDisDomains(scenarioURL, cb);
+          scn = result;
+          scn.getDisDomains(cb);
         },
         function(result, cb) {
-          h.scenarios.putDisDomains(result.items[0].self, data, cb);
+          dDomId = result[0].id;
+          scn.putDisDomains(dDomId, data, cb);
         },
         function(result, cb) {
+          should.exist(result);
           result.name.should.eql(data.name);
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -417,23 +353,21 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should post dis domains', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
+      var scn;
       var data = {name: "HAPI"};
+      var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_postDisDomains()', cb);
+          h.createScenario('postDisDomains()', cb);
         },
         function(result, cb) {
-          scenarioURL = result.self;
-          h.scenarios.getDisDomains(scenarioURL, cb);
+          scn = result;
+          scn.postDisDomains(data, cb);
         },
         function(result, cb) {
-          h.scenarios.postDisDomains(result.self, data, cb);
-        },
-        function(result, cb) {
+          should.exist(result);
           result.name.should.eql(data.name);
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -441,34 +375,30 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should del dis domains', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      var scenarioURL = "";
-      var disDomain = "";
+    it.only('should del dis domains', function(done) {
+      var scn, dDomId;
       var data = {name: "HAPI"};
+      var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.scenarios.createScenario('test_delDisDomains()', cb);
+          h.createScenario('delDisDomains()', cb);
         },
         function(result, cb) {
-          scenarioURL = result.self;
-          h.scenarios.getDisDomains(scenarioURL, cb);
+          scn = result;
+          scn.postDisDomains(data, cb);
         },
         function(result, cb) {
-          h.scenarios.postDisDomains(scenarioURL, data, cb);
+          dDomId = result.id;
+          scn.getDisDomains(cb);
         },
         function(result, cb) {
-          disDomain = result.self;
-          h.scenarios.delDisDomains(disDomain, cb);
+          scn.delDisDomains(dDomId, cb);
         },
         function(result, cb) {
-          h.scenarios.getDisDomains(scenarioURL, cb);
+          scn.getDisDomains(cb);
         },
         function(result, cb) {
-          for(var i = 0; i < result.items.length; i++) {
-            result.items[i].name.should.not.eql(data.name);
-          }
-          h.scenarios.deleteScenario(scenarioURL, cb);
+          h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -827,7 +757,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should post radio', function(done) {
+    it.skip('should post radio', function(done) {
       var data = {name: 'HAPI'};
       var h = nVoisus.createHapi(test.host);
       var scenarioURL = "";
@@ -854,7 +784,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should get scenario id', function(done) {
+    it.skip('should get scenario id', function(done) {
       var h = nVoisus.createHapi(test.host);
       var scenarioURL;
       async.waterfall([
