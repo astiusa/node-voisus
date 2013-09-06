@@ -71,8 +71,8 @@ hapi.createScenario('MyNewScenario', function(err, result) {...});
 ### Scenario object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
-hapi.createScenario('MyNewScenario', function(err, result) {
-	var scenario = result;
+hapi.createScenario('MyNewScenario', function(err, myScenario) {
+	var scenario = myScenario;
 	scenario.`method`(function(err, result) {...});
 });
 ```
@@ -82,17 +82,92 @@ hapi.createScenario('MyNewScenario', function(err, result) {
 `returns:`	Array of Dis Domains
 
 #### putDisDomains();
-`params:`	Dis Domain ID (string), Data (JSON Object)
+`params:`	Dis Domain ID (string), Data (JSON)
 
 `returns:`	Array of Dis Domains
 
 #### postDisDomains();
-`params:`	Data (JSON Object)
+`params:`	Data (JSON)
 
 `returns:`	JSON
 
 #### delDisDomains();
 `params:`	Dis Domain ID (string)
+
+`returns:`	JSON
+
+#### getDis();
+`params:`	None
+
+`returns:`	JSON
+
+#### putDis();
+`params:`	Data (JSON)
+
+`returns:`	JSON
+
+#### delDis();
+`params:`	None
+
+`returns:`	JSON
+
+#### getNets();
+`params:`	None
+
+`returns:`	Array of Nets
+
+#### putNets();
+`params:`	Nets ID (string), Data (JSON)
+
+`returns:`	JSON
+
+#### postNets();
+`params:`	Data (JSON)
+
+`returns:`	JSON
+
+#### delNets();
+`params:`	Nets ID (string)
+
+`returns:`	JSON
+
+#### getRoles();
+`params:`	None
+
+`returns:`	Array of Roles
+
+#### postRoles();
+`params:`	Data (JSON)
+
+`returns:`	JSON
+
+#### putRoles();
+`params:`	Roles ID (string), Data (JSON)
+
+`returns:`	JSON
+
+#### delRoles();
+`params:`	Roles ID (string)
+
+`returns:`	JSON
+
+#### getFills();
+`params:`	None
+
+`returns:`	Array of Fills
+
+#### postFills();
+`params:`	Data (JSON)
+
+`returns:`	JSON
+
+#### putFills();
+`params:`	Fills ID (string), Data (JSON)
+
+`returns:`	JSON
+
+#### delFills();
+`params:` Fills ID (string)
 
 `returns:`	JSON
 
