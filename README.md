@@ -14,6 +14,7 @@ var nVoisus = require('.././lib/node-voisus');
 ```
 
 * createHapi(IPAddress[string], cb); returns: Hapi Object
+
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 ```
@@ -33,14 +34,12 @@ hapi."method"(function(err, result) {...});
 * getFeatures(cb); returns: JSON
 
 ## Scenarios
-
-* createScenario(Scenario Name[string], cb); returns: Scenario Object
-
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 hapi.createScenario('scenarioExample', function(err, scenario) {...});
 ```
 
+* createScenario(Scenario Name[string], cb); returns: Scenario Object
 * getScenarios(cb); returns: array[] scenarios
 * runScenario(Scenario ID[string], cb); returns: JSON
 * runAsyncScenario(Scenario ID[string], cb); returns: JSON
