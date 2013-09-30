@@ -4,16 +4,19 @@ This module provides access to maintenance and oversight over the voisus client 
 # Hapi
 - [Basic](#basic)
 - [Scenarios](#scenarios)
+- [Users](#users)
+- [Sessions](#sessions)
+- [Services](#services)
 
 ## Usage:
 ```javascript
 var nVoisus = require('.././lib/node-voisus');
 ```
 
-#### createHapi();
+#### createHapi(IPAddress[string], cb); returns: Hapi Object
 `params:` IPAddress
 
-`returns:`	Hapi object
+`returns:`	Hapi Object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 ```
@@ -23,151 +26,73 @@ var hapi = nVoisus.createHapi('IPAddress');
 
 `returns:`	JSON
 ```javascript
-hapi.`method`(function(err, result) {...});
+hapi."method"(function(err, result) {...});
 ```
-getApiVersion(callback)
-getVersion(callback)
-getAboutMe(callback)
-getPerfmon(callback)
-getRunlevel(callback)
-getDownloadURLs(callback)
+#### getApiVersion(cb); returns: JSON
+#### getVersion(cb); returns: JSON
+#### getAboutMe(cb); returns: JSON
+#### getPerfmon(cb); returns: JSON
+#### getRunlevel(cb); returns: JSON
+#### getDownloadURLs(cb); returns: JSON
+#### getServers(cb); returns: JSON
+#### getFeatures(cb); returns: JSON
 
 ## Scenarios
 
-#### createScenario();
-`params:`	Scenario Name (string)
-
-`returns:`	Scenario object
+#### createScenario(Scenario Name[string], cb); returns: Scenario Object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
-hapi.createScenario('MyNewScenario', function(err, result) {...});
+hapi.createScenario('scenarioExample', function(err, scenario) {...});
 ```
+#### getScenarios(cb); returns: array[] scenarios
+#### runScenario(Scenario ID[string], cb); returns: JSON
+#### runAsyncScenario(Scenario ID[string], cb); returns: JSON
+#### stopScenario(Scenario ID[string], cb); returns: JSON
+#### deleteScenario(Scenario ID[string], cb); returns: JSON
+#### getTemplates(cb); returns: array[] Templates
+#### createScenarioFromTemplate(Scenario Name[string], Template, cb)
 
-#### getScenarios();
-`params:`	None
-
-`returns:`	Array of scenarios
-
-#### runScenario();
-`params:`	Scenario ID (string)
-
-`returns:`	JSON
-
-#### runAsyncScenario
-`params:`	Scenario ID (string)
-
-`returns:`	JSON
-
-#### stopScenario();
-`params:`	Scenario ID (string)
-
-`returns:`	JSON
-
-#### deleteScenario();
-`params:`	Scenario ID (string)
-
-`returns:`	JSON
-
-### Scenario object
+### Scenario Object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
-hapi.createScenario('MyNewScenario', function(err, myScenario) {
-	var scenario = myScenario;
-	scenario.`method`(function(err, result) {...});
+hapi.createScenario('scenarioExample', function(err, scenario) {
+	var myScenario = scenario;
+	myScenario."method"(function(err, result) {...});
 });
 ```
-#### getDisDomains();
-`params:`	None
+#### getDisDomains(cb); returns: array[] Dis Domains
+#### putDisDomains(Dis Domain ID[string], Dis Domain Object[JSON], cb); returns: JSON
+#### postDisDomains(Dis Domain Object[JSON], cb); returns: JSON
+#### delDisDomains(Dis Domain ID[string], cb); returns: JSON
+#### getDis(cb); returns: JSON
+#### putDis(Dis Object[JSON], cb); returns: JSON
+#### delDis(cb ); returns: JSON
+#### getNets(); returns: array[] Nets
+#### putNets(Net ID[string], Net Object[JSON], cb); returns: JSON
+#### postNets(Net Object[JSON], cb); returns: JSON
+#### delNets(Net ID[string], cb); returns: JSON
+#### getRoles(cb); returns: array[] Roles
+#### putRoles(Role ID[string], Roles Object[JSON], cb); returns: JSON
+#### postRoles(Roles Object[JSON], cb); returns: JSON
+#### delRoles(Role ID[string], cb); returns: JSON
+#### getRolesGenericRadio(Role ID[string], cb); returns: JSON
+#### getFills(cb); returns: array[] Fills
+#### putFills(Fills ID[stirng], Fills Object[JSON], cb); returns: JSON
+#### postFills(Fills Object[JSON], cb); returns: JSON
+#### delFills(Fills ID[stirng], cb); returns: JSON
 
-`returns:`	Array of Dis Domains
+## Users
 
-#### putDisDomains();
-`params:`	Dis Domain ID (string), Data (JSON)
+#### getUsers(cb); returns: array[] Users
+#### postUsers(User Object[JSON], cb); returns: JSON
 
-`returns:`	Array of Dis Domains
+## Sessions
 
-#### postDisDomains();
-`params:`	Data (JSON)
+#### getRunningSession(cb); returns: JSON
 
-`returns:`	JSON
+## Services
 
-#### delDisDomains();
-`params:`	Dis Domain ID (string)
+#### getServices(cb); returns: Services Object
 
-`returns:`	JSON
-
-#### getDis();
-`params:`	None
-
-`returns:`	JSON
-
-#### putDis();
-`params:`	Data (JSON)
-
-`returns:`	JSON
-
-#### delDis();
-`params:`	None
-
-`returns:`	JSON
-
-#### getNets();
-`params:`	None
-
-`returns:`	Array of Nets
-
-#### putNets();
-`params:`	Nets ID (string), Data (JSON)
-
-`returns:`	JSON
-
-#### postNets();
-`params:`	Data (JSON)
-
-`returns:`	JSON
-
-#### delNets();
-`params:`	Nets ID (string)
-
-`returns:`	JSON
-
-#### getRoles();
-`params:`	None
-
-`returns:`	Array of Roles
-
-#### postRoles();
-`params:`	Data (JSON)
-
-`returns:`	JSON
-
-#### putRoles();
-`params:`	Roles ID (string), Data (JSON)
-
-`returns:`	JSON
-
-#### delRoles();
-`params:`	Roles ID (string)
-
-`returns:`	JSON
-
-#### getFills();
-`params:`	None
-
-`returns:`	Array of Fills
-
-#### postFills();
-`params:`	Data (JSON)
-
-`returns:`	JSON
-
-#### putFills();
-`params:`	Fills ID (string), Data (JSON)
-
-`returns:`	JSON
-
-#### delFills();
-`params:` Fills ID (string)
-
-`returns:`	JSON
+### Services Object
 

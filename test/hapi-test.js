@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "192.237.249.106",
+  host: "67.207.154.226",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -1495,6 +1495,48 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
-
   });
+
+  describe('User: ', function() {
+    it('should get all AMS users', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.getUsers(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result[0].data_type);
+          result[0].data_type.should.eql('ams_user');
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post an AMS user', function(done) {
+      var user = {
+        user: 'TestUser',
+        pass: 'TestPass'
+      };
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.postUser(user, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.data_type);
+          result.data_type.should.eql('ams_user');
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+  });
+
 });
