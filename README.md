@@ -14,20 +14,15 @@ var nVoisus = require('.././lib/node-voisus');
 ```
 
 * createHapi(IPAddress[string], cb); returns: Hapi Object
-`params:` IPAddress
-
-`returns:`	Hapi Object
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 ```
 
 ## Basic
-`params:` None
-
-`returns:`	JSON
 ```javascript
 hapi."method"(function(err, result) {...});
 ```
+
 * getApiVersion(cb); returns: JSON
 * getVersion(cb); returns: JSON
 * getAboutMe(cb); returns: JSON
@@ -40,10 +35,12 @@ hapi."method"(function(err, result) {...});
 ## Scenarios
 
 * createScenario(Scenario Name[string], cb); returns: Scenario Object
+
 ```javascript
 var hapi = nVoisus.createHapi('IPAddress');
 hapi.createScenario('scenarioExample', function(err, scenario) {...});
 ```
+
 * getScenarios(cb); returns: array[] scenarios
 * runScenario(Scenario ID[string], cb); returns: JSON
 * runAsyncScenario(Scenario ID[string], cb); returns: JSON
@@ -60,6 +57,7 @@ hapi.createScenario('scenarioExample', function(err, scenario) {
 	myScenario."method"(function(err, result) {...});
 });
 ```
+
 * getDisDomains(cb); returns: array[] Dis Domains
 * putDisDomains(Dis Domain ID[string], Dis Domain Object[JSON], cb); returns: JSON
 * postDisDomains(Dis Domain Object[JSON], cb); returns: JSON
