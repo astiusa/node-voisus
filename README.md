@@ -8,9 +8,13 @@ This module provides access to maintenance and oversight over the voisus client 
 - [Sessions](#sessions)
 - [Services](#services)
 
+## Installation:
+
+npm install voisus
+
 ## Usage:
 ```javascript
-var nVoisus = require('.././lib/node-voisus');
+var nVoisus = require('voisus');
 ```
 
 * createHapi(IPAddress[string], cb); returns: Hapi Object
