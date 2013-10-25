@@ -1,7 +1,7 @@
 {
   "name": "node-voisus",
   "version": "0.1.1",
-  "private": true,
+  "private": false,
   "scripts": {
     "start": "node index.js",
     "test": "mocha -R spec --timeout 15000"
