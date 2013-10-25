@@ -1,5 +1,5 @@
 {
-  "name": "node-voisus",
+  "name": "voisus",
   "version": "0.1.1",
   "private": false,
   "scripts": {
@@ -17,7 +17,29 @@
     "should": "*"
   },
   "directories": {
-    "lib": "./lib/"
+    "test": "test"
   },
-  "main": "./lib/node-voisus"
+  "main": "./lib/node-voisus",
+  "description": "This module provides access to maintenance and oversight over the voisus client and server.  # Hapi - [Basic](#basic) - [Scenarios](#scenarios) - [Users](#users) - [Sessions](#sessions) - [Services](#services)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/astilabs/node-voisus.git"
+  },
+  "keywords": [
+    "asti",
+    "voisus",
+    "api",
+    "vbs2",
+    "node",
+    "nodejs",
+    "advanced",
+    "simulation",
+    "technology",
+    "inc"
+  ],
+  "author": "ASTi Labs <support@labs.asti-usa.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/astilabs/node-voisus/issues"
+  }
 }
