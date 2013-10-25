@@ -1,6 +1,6 @@
 {
   "name": "voisus",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": false,
   "scripts": {
     "start": "node index.js",
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "jsonify": "*",
-    "restler": "git+ssh://git@github.com:rosskukulinski/restler.git#ignore-self-sign",
+    "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
     "async": "~0.2.7",
     "underscore": "~1.5.1"
   },
