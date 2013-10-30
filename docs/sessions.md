@@ -15,6 +15,7 @@ __Arguments__
 __Returns__
 
 * `JSON`:
+
 ```javascript
 "id": "id",
 "name": "name",

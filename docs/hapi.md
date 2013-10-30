@@ -10,7 +10,7 @@ To create a hapi object, you must require voisus package `require('voisus')` and
 
 __Arguments__
 
-* IPAddress: 'string'
+* IPAddress: `string`
 
 ```javascript
 192.30.252.131
