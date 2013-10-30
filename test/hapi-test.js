@@ -1568,4 +1568,51 @@ describe('Voisus HAPI: ', function () {
       });
     });
   });
+
+  describe('Performance Tool: ', function() {
+    it('should get performance test', function(done) {
+      var scn;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('getPerformanceTest()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.getPerformanceTest(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.data_type);
+          result.data_type.should.eql('performance_test');
+          h.deleteScenario(scn._scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get performance test report', function(done) {
+      var scn;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('getPerformanceTestReports()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.getPerformanceTestReports(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          should.exist(result.items);
+          h.deleteScenario(scn._scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+  });
 });
