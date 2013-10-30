@@ -4,7 +4,9 @@ This module provides access to maintenance and oversight over the voisus client 
 
 ## Installation:
 
-`npm install voisus`
+```javascript
+npm install voisus
+```
 
 ## Usage:
 
@@ -23,7 +25,6 @@ hapi."method"(args, function(err, result) {
 - [Sessions][docs_sessions]
 - [Users][docs_users]
 
-[docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
 [docs_scenarios]: https://github.com/astilabs/node-voisus/blob/master/docs/scenarios.md
 [docs_sessions]: https://github.com/astilabs/node-voisus/blob/master/docs/sessions.md
 [docs_users]: https://github.com/astilabs/node-voisus/blob/master/docs/users.md
