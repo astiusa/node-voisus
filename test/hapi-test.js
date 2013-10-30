@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "67.207.154.226",
+  host: "ServerAddress",
   badHost: "www.def.not.asti-usa.museum",
 };
 
@@ -1539,4 +1539,27 @@ describe('Voisus HAPI: ', function () {
     });
   });
 
+  describe.only('Performance Tool: ', function() {
+    it('should get performance test', function(done) {
+      var scn;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('getPerformanceTest()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.getPerformanceTest(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          h.deleteScenario(scn._scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+  });
 });
