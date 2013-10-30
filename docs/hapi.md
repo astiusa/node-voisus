@@ -6,6 +6,22 @@ Hapi is the object used to interact with the voisus server. It allows you to get
 
 To create a hapi object, you must require voisus package `require('voisus')` and then call the `createHapi()` method with the server IP address. Once you have a hapi object you can then begin calling its methods in the form of `hapi."method"()`. 
 
+### createHapi(IPAddress)
+
+__Arguments__
+
+* IPAddress: 'string'
+
+```javascript
+192.30.252.131
+```
+
+__Returns__
+
+* `Hapi Object`
+
+example: 
+
 ```javascript
 var nVoisus = require('voisus');
 var hapi = nVoisus.createHapi('IPAddress');
