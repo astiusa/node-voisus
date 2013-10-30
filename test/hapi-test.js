@@ -1498,6 +1498,18 @@ describe('Voisus HAPI: ', function () {
   });
 
   describe('User: ', function() {
+    var user = {
+        user: 'TestUser',
+        pass: 'TestPass'
+    };
+
+    before(function(done) {
+      var h = nVoisus.createHapi(test.host);
+      h.deleteUserByName(user.user, function(err) {
+        done();
+      });
+    });
+
     it('should get all AMS users', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
@@ -1517,10 +1529,7 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should post an AMS user', function(done) {
-      var user = {
-        user: 'TestUser',
-        pass: 'TestPass'
-      };
+      
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1536,6 +1545,30 @@ describe('Voisus HAPI: ', function () {
         should.not.exist(err);
         done();
       });
+    });
+
+    it('should delete an AMS user', function(done) {
+      
+      before(function(done) {
+        var h = nVoisus.createHapi(test.host);
+        async.waterfall([
+          function(cb) {
+            h.postUser(user, cb);
+          },
+          function(result, cb) {
+            should.exist(result);
+            should.exist(result.data_type);
+            cb(null);
+          }
+        ], done);
+      });
+
+      var h = nVoisus.createHapi(test.host);
+      h.deleteUserByName(user.user, function(err) {
+        should.not.exist(err);
+        done();
+      });
+      
     });
   });
 
