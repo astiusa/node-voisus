@@ -10,7 +10,7 @@ To create a hapi object, you must require voisus package `require('voisus')` and
 
 __Arguments__
 
-* IPAddress: `string`
+* IPAddress: `String`
 
 ```javascript
 192.30.252.131
@@ -34,13 +34,13 @@ hapi."method"(args, function(err, result) {
 
 ### getApiVersion(callback)
 
-This function returns the API version for the voisus server.
+This function gets the API version for the voisus server.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `String`: 
 
@@ -52,13 +52,13 @@ __Returns__
 
 ### getVersion(callback)
 
-This function returns the software Version Info. Get general information about when the system was built, what branch, release etc.
+This function gets the software Version Info. Get general information about when the system was built, what branch, release etc.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`: 
 
@@ -80,13 +80,13 @@ __Returns__
 
 ### getAboutMe(callback)
 
-This function returns the contact information and description for this system.
+This function gets the contact information and description for this system.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`: 
 
@@ -105,41 +105,41 @@ __Returns__
 
 ### getPerfmon(callback)
 
-This function returns the current statistics for memory, network, and cpu.
+This function gets the current statistics for memory, network, and cpu.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`: 
 
 ```javascript
-"eth0": [array],
-"eth1": [array],
+"eth0": [Array],
+"eth1": [Array],
 "memfree": "memfree",
 "memtotal": "memtotal",
 "swaptotal": "swaptotal",
 "sample_time": "sample_time",
 "swapfree": "swapfree",
-"cpu0": [array],
-"cpu1": [array],
+"cpu0": [Array],
+"cpu1": [Array],
 ```
 
 ---------------------------------------
 
 ### getRunlevel(callback)
 
-This function returns the runlevel. Not very useful.
+This function gets the runlevel.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
-* `string`: 
+* `String`: 
 
 ```javascript
 "runlevel"
@@ -149,13 +149,13 @@ __Returns__
 
 ### getDownloadURLs(callback)
 
-This function returns the links to available voisus client files for download.
+This function gets the links to available voisus client files for download.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`: 
 
@@ -173,15 +173,15 @@ __Returns__
 
 ### getServers(callback)
 
-This function returns the list of current ASTi servers on the network.
+This function gets the list of current ASTi servers on the network.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
-* `array`: 
+* `Array`: 
 
 ```javascript
 "[]"
@@ -191,13 +191,13 @@ __Returns__
 
 ### getFeatures(callback)
 
-This function returns the list of all features.
+This function gets the list of all features.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`: 
 

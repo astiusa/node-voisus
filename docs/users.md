@@ -6,13 +6,13 @@ In order to get information about users, you must already have a hapi object (se
 
 ### getUsers(callback)
 
-This function returns the current users of the voisus server.
+This function gets the current users of the voisus server.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`:
 
@@ -26,7 +26,7 @@ __Returns__
 
 ### postUsers(user, callback)
 
-This function returns the current users of the voisus server.
+This function creates the users in the voisus server.
 
 __Arguments__
 
@@ -39,7 +39,7 @@ __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`:
 

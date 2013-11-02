@@ -6,7 +6,7 @@ In order to get information about services, you must already have a hapi object 
 
 ### getServices(callback)
 
-This function returns the services of the voisus server.
+This function returns the services object of the voisus server.
 
 __Arguments__
 
@@ -14,6 +14,9 @@ __Arguments__
 
 __Returns__
 
-* `Services Object`
+* `Services Object` (see [Services Object][])
+
+
+# Services Object
 
 [docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md

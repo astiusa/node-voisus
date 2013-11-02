@@ -1,4 +1,4 @@
-## Sessions
+# Sessions
 
 In order to get information about sessions, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server sessions.
 
@@ -6,13 +6,13 @@ In order to get information about sessions, you must already have a hapi object 
 
 ### getRunningSession(callback)
 
-This function returns the running session of the voisus server.
+This function gets the running session of the voisus server.
 
 __Arguments__
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
-__Returns__
+__Results__
 
 * `JSON`:
 
