@@ -6,7 +6,7 @@ In order to get information about scenarios, you must already have a hapi object
 
 ### createScenario(scenarioName, callback)
 
-This function returns a scenario object. (see [Scenario Object][])
+This function returns a scenario object. (see [Scenario Object](#Scenario Object))
 
 __Arguments__
 
@@ -16,8 +16,7 @@ __Arguments__
 
 __Returns__
 
-* `Scenario Object` (see [Scenario Object][])
-
+* `Scenario Object` (see [Scenario Object](#Scenario Object))
 
 ---------------------------------------
 
@@ -43,7 +42,6 @@ __Results__
   ...
 ]
 ```
-
 
 ---------------------------------------
 
@@ -71,7 +69,6 @@ __Results__
 }
 ```
 
-
 ---------------------------------------
 
 ### runAsyncScenario(scenarioId, callback)
@@ -98,7 +95,6 @@ __Results__
 }
 ```
 
-
 ---------------------------------------
 
 ### stopScenario(scenarioId, callback)
@@ -120,7 +116,6 @@ __Results__
   "state": "UNINSTALLED"
 }
 ```
-
 
 ---------------------------------------
 
@@ -168,7 +163,6 @@ __Results__
 ]
 ```
 
-
 ---------------------------------------
 
 ### createScenarioFromTemplate(scenarioId, callback)
@@ -183,7 +177,36 @@ __Arguments__
 
 __Results__
 
-* `Scenario Object` (see [Scenario Object][])
+* `Scenario Object` (see [Scenario Object](#Scenario Object))
 
+---------------------------------------
 
 # Scenario Object
+
+In order to perform actions on a given scenarios, you must already have a scenario object (see [Create Scenario](#createScenario)). These methods are available to interact with the the scenario.
+
+---------------------------------------
+
+* getDisDomains(cb); returns: array[] Dis Domains
+* putDisDomains(Dis Domain ID[string], Dis Domain Object[JSON], cb); returns: JSON
+* postDisDomains(Dis Domain Object[JSON], cb); returns: JSON
+* delDisDomains(Dis Domain ID[string], cb); returns: JSON
+* getDis(cb); returns: JSON
+* putDis(Dis Object[JSON], cb); returns: JSON
+* delDis(cb ); returns: JSON
+* getNets(); returns: array[] Nets
+* putNets(Net ID[string], Net Object[JSON], cb); returns: JSON
+* postNets(Net Object[JSON], cb); returns: JSON
+* delNets(Net ID[string], cb); returns: JSON
+* getRoles(cb); returns: array[] Roles
+* putRoles(Role ID[string], Roles Object[JSON], cb); returns: JSON
+* postRoles(Roles Object[JSON], cb); returns: JSON
+* delRoles(Role ID[string], cb); returns: JSON
+* getRolesGenericRadio(Role ID[string], cb); returns: JSON
+* getFills(cb); returns: array[] Fills
+* putFills(Fills ID[stirng], Fills Object[JSON], cb); returns: JSON
+* postFills(Fills Object[JSON], cb); returns: JSON
+* delFills(Fills ID[stirng], cb); returns: JSON
+
+[docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
+

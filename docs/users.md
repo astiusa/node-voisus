@@ -38,8 +38,10 @@ __Arguments__
 * user: `JSON`
 
 ```javascript
-"user": "fakeuser",
-"pass": "fakepassword"
+{
+  "user": "fakeuser",
+  "pass": "fakepassword"
+}
 ```
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.

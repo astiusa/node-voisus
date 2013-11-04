@@ -14,9 +14,13 @@ __Arguments__
 
 __Returns__
 
-* `Services Object` (see [Services Object][])
+* `Services Object` (see [Services Object](#Services Object))
 
 
 # Services Object
+
+In order to get inforation about the services, you must already have a services object (see [getServices](#getServices)). These methods are available to interact with the the services.
+
+---------------------------------------
 
 [docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
