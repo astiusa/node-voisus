@@ -1,6 +1,7 @@
 ## Scenarios
 
-In order to get information about scenarios, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server scenarios. 
+In order to get information about scenarios, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server scenarios.
+
 ---------------------------------------
 
 ### createScenario(scenarioName, callback)
@@ -35,9 +36,9 @@ __Results__
 ```javascript
 [
   {
-    "id": "id",
-    "name": "name",
-    "data_type": "data_type"
+    "id": "e673f38989514ccda3bf0ffc82083f17",
+    "name": "Basic_Example",
+    "data_type": "scenario"
   },
   ...
 ]
@@ -62,11 +63,11 @@ __Results__
 
 ```javascript
 {
-  "id": "id",
-  "name": "name",
-  "session": "session",
-  "host": "host",
-  "state": "state"
+  "id": "e673f38989514ccda3bf0ffc82083f17",
+  "name": "Basic_Example",
+  "session": "ddecf123a6c14f89a8c40740fbc0e038",
+  "host": "admin-nvoisus.local",
+  "state": "INSTALLED"
 }
 ```
 
@@ -89,11 +90,11 @@ __Results__
 
 ```javascript
 {
-  "id": "id",
-  "name": "name",
-  "session": "session",
-  "host": "host",
-  "state": "state"
+  "id": "e673f38989514ccda3bf0ffc82083f17",
+  "name": "Basic_Example",
+  "session": "ddecf123a6c14f89a8c40740fbc0e038",
+  "host": "admin-nvoisus.local",
+  "state": "INSTALLED"
 }
 ```
 
@@ -116,7 +117,7 @@ __Results__
 
 ```javascript
 {
-  "state": "state"
+  "state": "UNINSTALLED"
 }
 ```
 
@@ -137,6 +138,9 @@ __Results__
 
 * `JSON`:
 
+```javascript
+{}
+```
 
 ---------------------------------------
 
@@ -157,7 +161,7 @@ __Results__
 ```javascript
 [
   {
-    "name": "name",
+    "name": "Basic_Example",
     "data_type": "template"
   },
   ...

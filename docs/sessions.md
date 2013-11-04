@@ -17,12 +17,12 @@ __Results__
 * `JSON`:
 
 ```javascript
-"id": "id",
-"name": "name",
-"session": "session",
-"host": "host",
-"state": "state",
-"percent": "percent"
+"id": "e673f38989514ccda3bf0ffc82083f17",
+"name": "Basic_Example",
+"session": "ddecf123a6c14f89a8c40740fbc0e038",
+"host": "admin-nvoisus.local",
+"state": "INSTALLED",
+"percent": 100
 ```
 
 [docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md

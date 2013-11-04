@@ -45,7 +45,7 @@ __Results__
 * `String`: 
 
 ```javascript
-"API version"
+"1.0"
 ```
 
 ---------------------------------------
@@ -63,17 +63,16 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"product": "product", 
-"manifest_checksum": "manifest_checksum", 
-"ia_version": "ia_version", 
-"builddate": "builddate", 
-"self": "self", 
-"os_version": "os_version", 
-"version": "version", 
-"branch": "branch", 
-"time": "time", 
-"release": "release", 
-"commit": "commit"
+"product": "Voisus Server International",
+"manifest_checksum": "https://162.209.102.161/api/version/checksum",
+"ia_version": "none",
+"builddate": "2013/10/30 07:26pm EST",
+"os_version": "CentOS release 6.4 (Final)",
+"version": "v5.15.0-518-g53fb19f8",
+"branch": "master",
+"time": "1383172490",
+"release": "v5.Dev : 53fb19f8 : (master)",
+"commit": "53fb19f8dbcfbf5abb651d4fdf43dd787a6ffc6a"
 ```
 
 ---------------------------------------
@@ -91,14 +90,13 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"description": "description", 
-"_rev": "_rev", 
-"contact_phone1": "contact_phone1", 
-"self": "self", 
-"contact_email": "contact_email", 
-"contact_name": "contact_name", 
-"_id": "_id", 
-"id": "id"
+"description": "",
+"_rev": "1-ad740481efe40ac6f3aec9d058f43a89",
+"contact_phone1": "",
+"contact_email": "",
+"contact_name": "",
+"_id": "1b240a3ee5b1d0a3a0b11428e2000ab3",
+"id": "aboutme"
 ```
 
 ---------------------------------------
@@ -116,14 +114,35 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"eth0": [Array],
+"eth0": [
+    1042953,
+    12617,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    15726335,
+    12714,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
 "eth1": [Array],
-"memfree": "memfree",
-"memtotal": "memtotal",
-"swaptotal": "swaptotal",
-"sample_time": "sample_time",
-"swapfree": "swapfree",
-"cpu0": [Array],
+"memfree": 788980,
+"memtotal": 1914328,
+"swaptotal": 0,
+"sample_time": 1383593860.897985,
+"swapfree": 0,
+"cpu0": [
+  18540,
+  10,
+  37544
+],
 "cpu1": [Array],
 ```
 
@@ -142,7 +161,7 @@ __Results__
 * `String`: 
 
 ```javascript
-"runlevel"
+"3"
 ```
 
 ---------------------------------------
@@ -160,12 +179,17 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"linux_opengl": {JSON}, 
-"windows_app": {JSON}, 
-"linux_client": {JSON}, 
-"windows_client": {JSON}, 
-"vbs2_plugin": {JSON}, 
-"windows_opengl": {JSON}, 
+"linux_client": {
+  "path": "/var/asti/downloads/voisus-client-v5.Dev.bin",
+  "link": "https://URL/api/downloads/linux_client/",
+  "name": "voisus-client-v5.Dev.bin",
+  "size": "12.19 MB"
+},
+"linux_opengl": {JSON},
+"windows_app": {JSON},
+"windows_client": {JSON},
+"vbs2_plugin": {JSON},
+"windows_opengl": {JSON},
 "windows_tocnet": {JSON}
 ```
 
@@ -202,20 +226,24 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"acenet": "acenet",
-"prc117f": "prc117f",
-"debugwebsocket": "debugwebsocket",
-"networkcredits": "networkcredits",
-"crewintercom": "crewintercom",
-"urc200": "urc200",
-"sincgars": "sincgars",
-"simscribeallpdus": "simscribeallpdus",
-"multiserver": "multiserver",
-"acexmpp": "acexmpp",
-"radiomonautotune": "radiomonautotune",
-"simscribevbs": "simscribevbs",
-"disreplay": "disreplay",
-"tocnetcau": "tocnetcau",
-"acechat": "acechat",
-"prc119": "prc119"
+"acenet": "no",
+"prc117f": "no",
+"debugwebsocket": "yes",
+"networkcredits": "no",
+"crewintercom": "no",
+"urc200": "yes",
+"sincgars": "no",
+"simscribeallpdus": "no",
+"multiserver": "yes",
+"acexmpp": "no",
+"radiomonautotune": "yes",
+"simscribevbs": "yes",
+"disreplay": "no",
+"tocnetcau": "no",
+"acechat": "no",
+"prc119": "yes"
 ```
+
+for more documentation about the Voisus Server API see [support].
+
+[support]: http://support.asti-usa.com/voisus/voisus_api.html

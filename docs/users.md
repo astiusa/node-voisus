@@ -14,12 +14,17 @@ __Arguments__
 
 __Results__
 
-* `JSON`:
+* `Array`:
 
 ```javascript
-"user": "user",
-"pass": "pass",
-"data_type": "data_type"
+[
+  {
+    "user": "fakeuser",
+    "pass": "6ab86a9550ed702e65eb73030f37ded9ed43254d6fa6258250485418657333876ca399e724567f58bdda6fcc195d011f365aa8dfe22c67ddaea6b56cddede78c",
+    "data_type": "ams_user"
+  },
+  ...
+]
 ```
 
 ---------------------------------------
@@ -33,8 +38,8 @@ __Arguments__
 * user: `JSON`
 
 ```javascript
-"user": "user",
-"pass": "pass"
+"user": "fakeuser",
+"pass": "fakepassword"
 ```
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
@@ -44,9 +49,9 @@ __Results__
 * `JSON`:
 
 ```javascript
-"user": "user",
-"pass": "pass",
-"data_type": "data_type"
+"user": "fakeuser",
+"pass": "6ab86a9550ed702e65eb73030f37ded9ed43254d6fa6258250485418657333876ca399e724567f58bdda6fcc195d011f365aa8dfe22c67ddaea6b56cddede78c",
+"data_type": "ams_user"
 ```
 
 [docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
