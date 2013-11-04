@@ -1529,7 +1529,6 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should post an AMS user', function(done) {
-      
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -1548,7 +1547,6 @@ describe('Voisus HAPI: ', function () {
     });
 
     it('should delete an AMS user', function(done) {
-      
       before(function(done) {
         var h = nVoisus.createHapi(test.host);
         async.waterfall([
@@ -1568,31 +1566,6 @@ describe('Voisus HAPI: ', function () {
         should.not.exist(err);
         done();
       });
-      
     });
-  });
-
-  describe.only('Performance Tool: ', function() {
-    it('should get performance test', function(done) {
-      var scn;
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.createScenario('getPerformanceTest()', cb);
-        },
-        function(result, cb) {
-          scn = result;
-          scn.getPerformanceTest(cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          h.deleteScenario(scn._scnId, cb);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-
   });
 });
