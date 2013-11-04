@@ -3,12 +3,12 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "ServerAddress",
+  host: "162.209.102.161",
   badHost: "www.def.not.asti-usa.museum",
 };
 
 describe('Voisus HAPI: ', function () {
-  describe('Basic Functionality: ', function () {
+  describe.only('Basic Functionality: ', function () {
 
     it("should accept a host", function () {
       var h = nVoisus.createHapi(test.host);
@@ -32,7 +32,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should get the server version', function(done) {
+    it('should get the voisus version', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -82,14 +82,12 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
-  });
 
-  describe('Performance: ', function() {
-    it("should get perfmon data", function(done) {
+    it("should get performance monitor", function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getPerfmon(cb);
+          h.getPerfMon(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -108,9 +106,7 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
-  });
 
-  describe('System Power: ', function() {
     it('should get the run level', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
@@ -127,14 +123,44 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
-  });
 
-  describe('Download cleints: ', function() {
-    it('should get the download clients url', function(done) {
+    it('should get the downloads', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getDownloadURLs(cb);
+          h.getDownloads(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get servers', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.getServers(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get features', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.getFeatures(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1433,42 +1459,6 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result.state);
-          should.exist(result);
-          cb(null);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-  });
-
-  describe('Server: ', function() {
-    it('should get servers', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.getServers(cb);
-        },
-        function(result, cb) {
-          should.exist(result);
-          cb(null);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-  });
-
-  describe('Features: ', function() {
-    it('should get features', function(done) {
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.getFeatures(cb);
-        },
-        function(result, cb) {
           should.exist(result);
           cb(null);
         }
