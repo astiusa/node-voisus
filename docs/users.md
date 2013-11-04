@@ -56,4 +56,7 @@ __Results__
 "data_type": "ams_user"
 ```
 
+for more documentation about the Voisus Server API see [support].
+
+[support]: http://support.asti-usa.com/voisus/voisus_api.html
 [docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md

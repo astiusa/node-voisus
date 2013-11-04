@@ -6,7 +6,7 @@ In order to get information about scenarios, you must already have a hapi object
 
 ### createScenario(scenarioName, callback)
 
-This function returns a scenario object. (see [Scenario Object](#Scenario Object))
+This function returns a scenario object. (see [Scenario Object](#scenario-object))
 
 __Arguments__
 
@@ -16,7 +16,7 @@ __Arguments__
 
 __Returns__
 
-* `Scenario Object` (see [Scenario Object](#Scenario Object))
+* `Scenario Object` (see [Scenario Object](#scenario-object))
 
 ---------------------------------------
 
@@ -177,13 +177,13 @@ __Arguments__
 
 __Results__
 
-* `Scenario Object` (see [Scenario Object](#Scenario Object))
+* `Scenario Object` (see [Scenario Object](#scenario-object))
 
 ---------------------------------------
 
 # Scenario Object
 
-In order to perform actions on a given scenarios, you must already have a scenario object (see [Create Scenario](#createScenario)). These methods are available to interact with the the scenario.
+In order to perform actions on a given scenarios, you must already have a scenario object (see [Create Scenario](#createscenarioscenarioname-callback)). These methods are available to interact with the the scenario.
 
 ---------------------------------------
 
@@ -208,5 +208,7 @@ In order to perform actions on a given scenarios, you must already have a scenar
 * postFills(Fills Object[JSON], cb); returns: JSON
 * delFills(Fills ID[stirng], cb); returns: JSON
 
-[docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
+for more documentation about the Voisus Server API see [support].
 
+[support]: http://support.asti-usa.com/voisus/voisus_api.html
+[docs_hapi]: https://github.com/astilabs/node-voisus/blob/master/docs/hapi.md
