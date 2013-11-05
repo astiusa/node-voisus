@@ -17,12 +17,16 @@ __Results__
 * `JSON`:
 
 ```javascript
-"id": "e673f38989514ccda3bf0ffc82083f17",
-"name": "Basic_Example",
-"session": "ddecf123a6c14f89a8c40740fbc0e038",
-"host": "admin-nvoisus.local",
-"state": "INSTALLED",
-"percent": 100
+{
+  "install_status": [ 100, 'install finished' ],
+  "cloud_id": 'vbs3',
+  "scenario_id": 'e673f38989514ccda3bf0ffc82083f17',
+  "session_id": '2370085eb18d44bf9932625bd660aeec',
+  "session_errors": [],
+  "install_state": 'INSTALLED',
+  "scenario_name": 'Basic_Example',
+  "scenario_host": 'admin-nvoisus.local'
+}
 ```
 
 for more documentation about the Voisus Server API see [support].

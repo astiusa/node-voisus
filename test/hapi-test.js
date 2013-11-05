@@ -3,12 +3,25 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "162.209.102.161",
+  host: "ServerAddress",
   badHost: "www.def.not.asti-usa.museum",
 };
 
 describe('Voisus HAPI: ', function () {
-  describe.only('Basic Functionality: ', function () {
+
+  describe.skip('Client Mon: ', function() {
+    it('should get the number of clients', function(done) {
+      done();
+    });
+  });
+
+  describe.skip('Radio Mon: ', function() {
+    it('should get the number of radios', function(done) {
+      done();
+    });
+  });
+
+  describe('Basic Functionality: ', function () {
 
     it("should accept a host", function () {
       var h = nVoisus.createHapi(test.host);
@@ -173,18 +186,6 @@ describe('Voisus HAPI: ', function () {
     });
   });
 
-  describe.skip('Client Mon: ', function() {
-    it('should get the number of clients', function(done) {
-      done();
-    });
-  });
-
-  describe.skip('Radio Mon: ', function() {
-    it('should get the number of radios', function(done) {
-      done();
-    });
-  });
-
   describe('Scenario: ', function() {
     it('should get scenarios', function(done) {
       var h = nVoisus.createHapi(test.host);
@@ -310,7 +311,7 @@ describe('Voisus HAPI: ', function () {
             function(callback) {
               count++;
               h.getRunningSession(function(err, data) {
-                if(data.state === "INSTALLING" && data.percent > 1) {
+                if(data.install_state === "INSTALLING" && data.install_status[0] > 1) {
                   count += 30;
                 }
               });
@@ -571,7 +572,6 @@ describe('Voisus HAPI: ', function () {
           scn.getDis(cb);
         },
         function(result, cb) {
-          console.log(result);
           h.deleteScenario(scn._scnId, cb);
         }
       ], function(err) {
@@ -923,13 +923,13 @@ describe('Voisus HAPI: ', function () {
 
   });
 
-  describe('Services GET: ', function() {
+  describe('Services: ', function() {
     it('should get services', function(done) {
       var srvc;
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -947,7 +947,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -970,7 +970,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -993,7 +993,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1016,7 +1016,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1034,17 +1034,40 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should get ace-netmon', function(done) {
+    it('should get ace-ams-web', function(done) {
       var srvc;
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
           srvc = result;
-          srvc.getAceNetmon(cb);
+          srvc.getAceAmsWeb(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.status.should.eql(true);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-audio-web', function(done) {
+      var srvc;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createServices(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          srvc = result;
+          srvc.getAceAudioWeb(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1062,7 +1085,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1085,7 +1108,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1108,7 +1131,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1131,7 +1154,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1154,7 +1177,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1177,7 +1200,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1200,7 +1223,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1223,7 +1246,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1246,7 +1269,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1264,17 +1287,40 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should get ace-ams-web', function(done) {
+    it('should get ace-sapi', function(done) {
       var srvc;
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
           srvc = result;
-          srvc.getAceAmsWeb(cb);
+          srvc.getAceSapi(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.status.should.eql(true);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should get ace-netmon', function(done) {
+      var srvc;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createServices(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          srvc = result;
+          srvc.getAceNetmon(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1292,7 +1338,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1315,7 +1361,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1338,7 +1384,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1356,12 +1402,35 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
+    it('should get ace-hapi-rc', function(done) {
+      var srvc;
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createServices(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          srvc = result;
+          srvc.getAceHapiRc(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.status.should.eql(false);
+          cb(null);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
     it('should get ace-hwdebug', function(done) {
       var srvc;
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1384,7 +1453,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1407,7 +1476,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1430,7 +1499,7 @@ describe('Voisus HAPI: ', function () {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
-          h.getServices(cb);
+          h.createServices(cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -1458,7 +1527,6 @@ describe('Voisus HAPI: ', function () {
           h.getRunningSession(cb);
         },
         function(result, cb) {
-          should.exist(result.state);
           should.exist(result);
           cb(null);
         }
@@ -1478,6 +1546,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
+          should.exist(result.self.cloud_id);
           cb(null);
         }
       ], function(err) {
@@ -1493,13 +1562,6 @@ describe('Voisus HAPI: ', function () {
         pass: 'TestPass'
     };
 
-    before(function(done) {
-      var h = nVoisus.createHapi(test.host);
-      h.deleteUserByName(user.user, function(err) {
-        done();
-      });
-    });
-
     it('should get all AMS users', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
@@ -1508,8 +1570,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result[0].data_type);
-          result[0].data_type.should.eql('ams_user');
+          should.exist(result[0]);
           cb(null);
         }
       ], function(err) {
@@ -1526,9 +1587,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result.data_type);
-          result.data_type.should.eql('ams_user');
-          cb(null);
+          h.deleteUserByName(user.user, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -1536,26 +1595,36 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it('should delete an AMS user', function(done) {
-      before(function(done) {
-        var h = nVoisus.createHapi(test.host);
-        async.waterfall([
-          function(cb) {
-            h.postUser(user, cb);
-          },
-          function(result, cb) {
-            should.exist(result);
-            should.exist(result.data_type);
-            cb(null);
-          }
-        ], done);
-      });
-
+    it('should delete an AMS user by name', function(done) {
       var h = nVoisus.createHapi(test.host);
-      h.deleteUserByName(user.user, function(err) {
-        should.not.exist(err);
-        done();
-      });
+      async.waterfall([
+        function(cb) {
+          h.postUser(user, cb);
+        },
+        function(result, cb) {
+          h.deleteUserByName(user.user, cb);
+        },
+        function(result, cb) {
+          should.not.exist(result);
+          cb(null);
+        }
+      ], done);
+    });
+
+    it('should delete an AMS user by id', function(done) {
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.postUser(user, cb);
+        },
+        function(result, cb) {
+          h.deleteUserById(result.id, cb);
+        },
+        function(result, cb) {
+          should.not.exist(result);
+          cb(null);
+        }
+      ], done);
     });
   });
 
