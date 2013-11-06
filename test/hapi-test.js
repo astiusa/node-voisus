@@ -3,14 +3,14 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "162.209.98.219",
+  host: "ServerAddress",
   badHost: "www.def.not.asti-usa.museum",
 };
 
 describe('Voisus HAPI: ', function () {
 
   describe('Basic: ', function () {
-    it.only("should accept a host", function () {
+    it("should accept a host", function () {
       var h = nVoisus.createHapi(test.host);
       should.exist(h);
     });
@@ -210,7 +210,7 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    it.only('should create a scenario', function(done) {
+    it('should create a scenario', function(done) {
       var h = nVoisus.createHapi(test.host);
       async.waterfall([
         function(cb) {
@@ -220,8 +220,6 @@ describe('Voisus HAPI: ', function () {
           should.exist(result);
           should.exist(result.scnId);
           should.exist(result.scnUrl);
-          console.log(result.scnId);
-          console.log(result.scnUrl);
           h.deleteScenario(result.scnId, cb);
         }
       ], function(err) {

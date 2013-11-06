@@ -18,7 +18,13 @@ __Arguments__
 
 __Returns__
 
-* `Hapi Object`
+* `Hapi Object` (see [Hapi Object](#hapi-object))
+
+---------------------------------------
+
+# Hapi Object
+
+the following methods are called with the hapi object.
 
 example: 
 
@@ -26,7 +32,7 @@ example:
 var nVoisus = require('voisus');
 var hapi = nVoisus.createHapi('IPAddress');
 hapi."method"(args, function(err, result) {
-	...
+  ...
 });
 ```
 
