@@ -26,30 +26,55 @@ In order to get inforation about the services, you must already have a services 
 The following functions all have the same behavior.
 
 __getAceAeHw(callback)__
+
 __getAnzac(callback)__
+
 __getAceRadiomonServer(callback)__
+
 __getAceCfimaster(callback)__
+
 __getAceAmsWeb(callback)__
+
 __getAceAudioWeb(callback)__
+
 __getAceAeSw(callback)__
+
 __getAceGWorkload(callback)__
+
 __getAceRadio(callback)__
+
 __getAceAeConstruct(callback)__
+
 __getAceRootd(callback)__
+
 __getAceAeLoader(callback)__
+
 __getAceCreditd(callback)__
+
 __getSimscribe(callback)__
+
 __getAceOperator(callback)__
+
 __getAceSapi(callback)__
+
 __getAceNetmon(callback)__
+
 __getAceAe(callback)__
+
 __getAceRc(callback)__
+
 __getAceConstruct(callback)__
+
 __getAceHapiRc(callback)__
+
 __getAceHwdebug(callback)__
+
 __getAceHapi(callback)__
+
 __getAceHwrt(callback)__
+
 __getAceCreditNet(callback)__
+
 
 The followins function gets the status of of their respective service.
 

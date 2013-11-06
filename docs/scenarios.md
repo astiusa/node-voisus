@@ -53,6 +53,8 @@ __Arguments__
 
 * scenarioId: `String`
 
+see [scenarioId](#scenarioid-objscnid-string)
+
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
 __Results__
@@ -78,6 +80,8 @@ This function runs the scenario asynchronously.
 __Arguments__
 
 * scenarioId: `String`
+
+see [scenarioId](#scenarioid-objscnid-string)
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
@@ -105,6 +109,8 @@ __Arguments__
 
 * scenarioId: `String`
 
+see [scenarioId](#scenarioid-objscnid-string)
+
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
 __Results__
@@ -127,6 +133,8 @@ __Arguments__
 
 * scenarioId: `String`
 
+see [scenarioId](#scenarioid-objscnid-string)
+
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
 __Results__
@@ -146,6 +154,8 @@ This function gets the scenario templates from the voisus server.
 __Arguments__
 
 * scenarioId: `String`
+
+see [scenarioId](#scenarioid-objscnid-string)
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
@@ -172,6 +182,8 @@ This function creates a scenario object from an existing scenario.
 __Arguments__
 
 * scenarioId: `String`
+
+see [scenarioId](#scenarioid-objscnid-string)
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
