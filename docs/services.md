@@ -23,31 +23,33 @@ In order to get inforation about the services, you must already have a services 
 
 ---------------------------------------
 
-### getAceAeHw(callback)
-### getAnzac(callback)
-### getAceRadiomonServer(callback)
-### getAceCfimaster(callback)
-### getAceAmsWeb(callback)
-### getAceAudioWeb(callback)
-### getAceAeSw(callback)
-### getAceGWorkload(callback)
-### getAceRadio(callback)
-### getAceAeConstruct(callback)
-### getAceRootd(callback)
-### getAceAeLoader(callback)
-### getAceCreditd(callback)
-### getSimscribe(callback)
-### getAceOperator(callback)
-### getAceSapi(callback)
-### getAceNetmon(callback)
-### getAceAe(callback)
-### getAceRc(callback)
-### getAceConstruct(callback)
-### getAceHapiRc(callback)
-### getAceHwdebug(callback)
-### getAceHapi(callback)
-### getAceHwrt(callback)
-### getAceCreditNet(callback)
+The following functions all have the same behavior.
+
+__getAceAeHw(callback)__
+__getAnzac(callback)__
+__getAceRadiomonServer(callback)__
+__getAceCfimaster(callback)__
+__getAceAmsWeb(callback)__
+__getAceAudioWeb(callback)__
+__getAceAeSw(callback)__
+__getAceGWorkload(callback)__
+__getAceRadio(callback)__
+__getAceAeConstruct(callback)__
+__getAceRootd(callback)__
+__getAceAeLoader(callback)__
+__getAceCreditd(callback)__
+__getSimscribe(callback)__
+__getAceOperator(callback)__
+__getAceSapi(callback)__
+__getAceNetmon(callback)__
+__getAceAe(callback)__
+__getAceRc(callback)__
+__getAceConstruct(callback)__
+__getAceHapiRc(callback)__
+__getAceHwdebug(callback)__
+__getAceHapi(callback)__
+__getAceHwrt(callback)__
+__getAceCreditNet(callback)__
 
 The followins function gets the status of of their respective service.
 
@@ -57,41 +59,43 @@ __Arguments__
 
 __Results__
 
-* `Array`:
+* `JSON`:
 
 ```javascript
 {
-  "status": false
+  "status": true
 }
 ```
 
 ---------------------------------------
 
-### putAceAeHw(callback)
-### putAnzac(callback)
-### putAceRadiomonServer(callback)
-### putAceCfimaster(callback)
-### putAceAmsWeb(callback)
-### putAceAudioWeb(callback)
-### putAceAeSw(callback)
-### putAceGWorkload(callback)
-### putAceRadio(callback)
-### putAceAeConstruct(callback)
-### putAceRootd(callback)
-### putAceAeLoader(callback)
-### putAceCreditd(callback)
-### putSimscribe(callback)
-### putAceOperator(callback)
-### putAceSapi(callback)
-### putAceNetmon(callback)
-### putAceAe(callback)
-### putAceRc(callback)
-### putAceConstruct(callback)
-### putAceHapiRc(callback)
-### putAceHwdebug(callback)
-### putAceHapi(callback)
-### putAceHwrt(callback)
-### putAceCreditNet(callback)
+The following functions all have the same behavior.
+
+__putAceAeHw(callback)__
+__putAnzac(callback)__
+__putAceRadiomonServer(callback)__
+__putAceCfimaster(callback)__
+__putAceAmsWeb(callback)__
+__putAceAudioWeb(callback)__
+__putAceAeSw(callback)__
+__putAceGWorkload(callback)__
+__putAceRadio(callback)__
+__putAceAeConstruct(callback)__
+__putAceRootd(callback)__
+__putAceAeLoader(callback)__
+__putAceCreditd(callback)__
+__putSimscribe(callback)__
+__putAceOperator(callback)__
+__putAceSapi(callback)__
+__putAceNetmon(callback)__
+__putAceAe(callback)__
+__putAceRc(callback)__
+__putAceConstruct(callback)__
+__putAceHapiRc(callback)__
+__putAceHwdebug(callback)__
+__putAceHapi(callback)__
+__putAceHwrt(callback)__
+__putAceCreditNet(callback)__
 
 The followins function restarts the respective service. __Use with caution__.
 
@@ -101,41 +105,41 @@ __Arguments__
 
 __Results__
 
-* `Array`:
+* `None`:
 
 ```javascript
-{
-  "status": false
-}
+None
 ```
 
 ---------------------------------------
 
-### delAceAeHw(callback)
-### delAnzac(callback)
-### delAceRadiomonServer(callback)
-### delAceCfimaster(callback)
-### delAceAmsWeb(callback)
-### delAceAudioWeb(callback)
-### delAceAeSw(callback)
-### delAceGWorkload(callback)
-### delAceRadio(callback)
-### delAceAeConstruct(callback)
-### delAceRootd(callback)
-### delAceAeLoader(callback)
-### delAceCreditd(callback)
-### delSimscribe(callback)
-### delAceOperator(callback)
-### delAceSapi(callback)
-### delAceNetmon(callback)
-### delAceAe(callback)
-### delAceRc(callback)
-### delAceConstruct(callback)
-### delAceHapiRc(callback)
-### delAceHwdebug(callback)
-### delAceHapi(callback)
-### delAceHwrt(callback)
-### delAceCreditNet(callback)
+The following functions all have the same behavior.
+
+__delAceAeHw(callback)__
+__delAnzac(callback)__
+__delAceRadiomonServer(callback)__
+__delAceCfimaster(callback)__
+__delAceAmsWeb(callback)__
+__delAceAudioWeb(callback)__
+__delAceAeSw(callback)__
+__delAceGWorkload(callback)__
+__delAceRadio(callback)__
+__delAceAeConstruct(callback)__
+__delAceRootd(callback)__
+__delAceAeLoader(callback)__
+__delAceCreditd(callback)__
+__delSimscribe(callback)__
+__delAceOperator(callback)__
+__delAceSapi(callback)__
+__delAceNetmon(callback)__
+__delAceAe(callback)__
+__delAceRc(callback)__
+__delAceConstruct(callback)__
+__delAceHapiRc(callback)__
+__delAceHwdebug(callback)__
+__delAceHapi(callback)__
+__delAceHwrt(callback)__
+__delAceCreditNet(callback)__
 
 The followins function stops the respective service. __Use with caution__.
 
@@ -145,12 +149,10 @@ __Arguments__
 
 __Results__
 
-* `Array`:
+* `None`:
 
 ```javascript
-{
-  "status": false
-}
+None
 ```
 
 ---------------------------------------

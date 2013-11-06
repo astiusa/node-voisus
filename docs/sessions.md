@@ -19,7 +19,7 @@ __Results__
 ```javascript
 {
   "install_status": [ 100, 'install finished' ],
-  "cloud_id": 'vbs3',
+  "cloud_id": 'nvoisus',
   "scenario_id": 'e673f38989514ccda3bf0ffc82083f17',
   "session_id": '2370085eb18d44bf9932625bd660aeec',
   "session_errors": [],
