@@ -2,11 +2,21 @@
 
 In order to get information about users, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server users.
 
+example:
+
+```javascript
+var nVoisus = require('voisus');
+var hapi = nVoisus.createHapi('IPAddress');
+hapi."method"(args, function(err, result) {
+  ...
+});
+```
+
 ---------------------------------------
 
 ### getUsers(callback)
 
-This function gets the current users of the voisus server.
+This function gets the users of the voisus server.
 
 __Arguments__
 
@@ -19,9 +29,9 @@ __Results__
 ```javascript
 [
   {
-    "user": "fakeuser",
-    "pass": "6ab86a9550ed702e65eb73030f37ded9ed43254d6fa6258250485418657333876ca399e724567f58bdda6fcc195d011f365aa8dfe22c67ddaea6b56cddede78c",
-    "data_type": "ams_user"
+    pass: '6a386a9550ed702e65eb73040f27ded9ed43254d6fa6258250485418657333878ca399e724567f58bdda6fcc195d011f565aa8dfe22c67ddaea6b56cddede7ec',
+    user: 'voisusUser',
+    id: 'a159bb2cb9cc4a778866b07169d09b1b'
   },
   ...
 ]
@@ -31,7 +41,7 @@ __Results__
 
 ### postUsers(user, callback)
 
-This function creates the users in the voisus server.
+This function creates a user.
 
 __Arguments__
 
@@ -39,8 +49,8 @@ __Arguments__
 
 ```javascript
 {
-  "user": "fakeuser",
-  "pass": "fakepassword"
+  "user": "voisusUser",
+  "pass": "voisusPassword"
 }
 ```
 
@@ -51,9 +61,59 @@ __Results__
 * `JSON`:
 
 ```javascript
-"user": "fakeuser",
-"pass": "6ab86a9550ed702e65eb73030f37ded9ed43254d6fa6258250485418657333876ca399e724567f58bdda6fcc195d011f365aa8dfe22c67ddaea6b56cddede78c",
-"data_type": "ams_user"
+{
+  id: 'a159bb2cb9cc4a778866b07169d09b1b',
+  user: 'voisusUser',
+  pass: '6a386a9550ed702e65eb73040f27ded9ed43254d6fa6258250485418657333878ca399e724567f58bdda6fcc195d011f565aa8dfe22c67ddaea6b56cddede7ec'
+}
+```
+
+---------------------------------------
+
+### deleteUserByName(userName, callback)
+
+This function deletes a user by name.
+
+__Arguments__
+
+* userName: `String`
+
+```javascript
+"voisusUser"
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Null`:
+
+```javascript
+null
+```
+
+---------------------------------------
+
+### deleteUserById(userId, callback)
+
+This function deletes a user by id.
+
+__Arguments__
+
+* userId: `String`
+
+```javascript
+"a159bb2cb9cc4a778866b07169d09b1b"
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Null`:
+
+```javascript
+null
 ```
 
 for more documentation about the Voisus Server API see [support].

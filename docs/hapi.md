@@ -18,15 +18,21 @@ __Arguments__
 
 __Returns__
 
-* `Hapi Object`
+* `Hapi Object` (see [Hapi Object](#hapi-object))
 
-example: 
+---------------------------------------
+
+# Hapi Object
+
+the following methods are called with the hapi object.
+
+example:
 
 ```javascript
 var nVoisus = require('voisus');
 var hapi = nVoisus.createHapi('IPAddress');
 hapi."method"(args, function(err, result) {
-	...
+  ...
 });
 ```
 
@@ -45,7 +51,7 @@ __Results__
 * `String`: 
 
 ```javascript
-"1.0"
+"1"
 ```
 
 ---------------------------------------
@@ -64,7 +70,7 @@ __Results__
 
 ```javascript
 "product": "Voisus Server International",
-"manifest_checksum": "https://162.209.102.161/api/version/checksum",
+"manifest_checksum": "https://URL/api/version/checksum",
 "ia_version": "none",
 "builddate": "2013/10/30 07:26pm EST",
 "os_version": "CentOS release 6.4 (Final)",
@@ -101,7 +107,7 @@ __Results__
 
 ---------------------------------------
 
-### getPerfmon(callback)
+### getPerfMon(callback)
 
 This function gets the current statistics for memory, network, and cpu.
 
@@ -166,7 +172,7 @@ __Results__
 
 ---------------------------------------
 
-### getDownloadURLs(callback)
+### getDownloads(callback)
 
 This function gets the links to available voisus client files for download.
 
@@ -226,22 +232,28 @@ __Results__
 * `JSON`: 
 
 ```javascript
-"acenet": "no",
-"prc117f": "no",
-"debugwebsocket": "yes",
-"networkcredits": "no",
-"crewintercom": "no",
-"urc200": "yes",
-"sincgars": "no",
-"simscribeallpdus": "no",
-"multiserver": "yes",
-"acexmpp": "no",
-"radiomonautotune": "yes",
-"simscribevbs": "yes",
-"disreplay": "no",
-"tocnetcau": "no",
-"acechat": "no",
-"prc119": "yes"
+{ 
+  "acenet": {enabled: 'no'},
+  "prc117f": {enabled: 'no'},
+  "debugwebsocket": {enabled: 'yes'},
+  "networkcredits": {enabled: 'no'},
+  "crewintercom": {enabled: 'no'},
+  "urc200": {enabled: 'yes'},
+  "sincgars": {enabled: 'no'},
+  "simscribeallpdus": {enabled: 'no'},
+  "multiserver": {enabled: 'yes'},
+  "acexmpp": {enabled: 'no'},
+  "webaudio": {enabled: 'yes'},
+  "radiomonautotune": {enabled: 'yes'},
+  "es3d": {enabled: 'yes'},
+  "simscribevbs": {enabled: 'yes'},
+  "tocnetcau": {enabled: 'no'},
+  "disreplay": {enabled: 'no'},
+  "streamapi": {enabled: 'yes'},
+  "acechat": {enabled: 'no'},
+  "prc119": {enabled: 'yes'},
+  "dis": {enabled: 'no'}
+}
 ```
 
 for more documentation about the Voisus Server API see [support].
