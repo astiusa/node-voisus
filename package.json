@@ -3,7 +3,7 @@
   "version": "0.2.5",
   "private": false,
   "scripts": {
-    "start": "mocha examples/automated-test.js -R spec --timeout 864000",
+    "start": "mocha examples/automated-test.js -R spec --timeout 120000",
     "test": "mocha -R spec --timeout 15000"
   },
   "dependencies": {

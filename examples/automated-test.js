@@ -8,9 +8,7 @@ var server = {
   host: "IPAddress"
 };
 var client = {
-  host_1: "IPAddress",
-  host_2: "IPAddress",
-  host_3: "IPAddress"
+  host_1: "IPAddress"
 };
 
 describe('Voisus server automated tests: ', function () {
