@@ -3,16 +3,16 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "ServerAddress",
-  badHost: "www.def.not.asti-usa.museum",
+  host: "IPAddress"
 };
 
 describe('Voisus HAPI: ', function () {
 
   describe('Basic: ', function () {
-    it("should accept a host", function () {
+    it("should accept a host", function(done) {
       var h = nVoisus.createHapi(test.host);
       should.exist(h);
+      done();
     });
 
     it("should get the api version", function(done) {
@@ -199,9 +199,8 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result[0].name);
-          should.exist(result[0].data_type);
-          result.length.should.be.above(1);
+          should.exist(result[0]);
+          result[0].length.should.be.above(1);
           cb(null);
         }
       ], function(err) {
@@ -235,7 +234,7 @@ describe('Voisus HAPI: ', function () {
           h.getTemplates(cb);
         },
         function(result, cb) {
-          h.createScenarioFromTemplate('createScenarioFromTemplate()', result[0].name, cb);
+          h.createScenarioFromTemplate('createScenarioFromTemplate()', result[0], cb);
         },
         function(result, cb) {
           should.exist(result);
@@ -262,12 +261,12 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result.id);
-          should.exist(result.name);
-          should.exist(result.session);
-          should.exist(result.host);
-          should.exist(result.state);
-          h.deleteScenario(result.id, cb);
+          should.exist(result.scenario_id);
+          should.exist(result.scenario_name);
+          should.exist(result.session_id);
+          should.exist(result.scenario_host);
+          should.exist(result.install_state);
+          h.deleteScenario(result.scenario_id, cb);
         }
       ], function(err) {
         should.not.exist(err);
@@ -289,8 +288,8 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          should.exist(result.state);
-          result.state.should.eql('INSTALLING');
+          should.exist(result.install_state);
+          result.install_state.should.eql('INSTALLING');
           async.whilst(
             function() {
               return count < 30;
@@ -327,11 +326,11 @@ describe('Voisus HAPI: ', function () {
           h.runScenario(scn.scnId, cb);
         },
         function(result, cb) {
-          h.stopScenario(result.id, cb);
+          h.stopScenario(result.scenario_id, cb);
         },
         function(result, cb) {
           should.exist(result);
-          result.state.should.eql('UNINSTALLED');
+          result.install_state.should.eql('UNINSTALLED');
           h.deleteScenario(scn.scnId, cb);
         }
       ], function(err) {

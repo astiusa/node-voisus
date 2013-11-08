@@ -35,9 +35,15 @@ __Results__
 ```javascript
 [
   {
-    "id": "e673f38989514ccda3bf0ffc82083f17",
-    "name": "Basic_Example",
-    "data_type": "scenario"
+    "id": 'e673f38989514ccda3bf0ffc82083f17',
+    "data_type": 'scenario',
+    "rev": '3-e3c0ed1914aa0b4c95eef2dd76669740',
+    "scenario_id": 'e673f38989514ccda3bf0ffc82083f17',
+    "version": 'v5.8.0-567-gbee9459c',
+    "description": '',
+    "name": 'Basic_Example',
+    "isactive": false,
+    "url": 'https://URL/api/scenarios/e673f38989514ccda3bf0ffc82083f17/'
   },
   ...
 ]
@@ -61,11 +67,14 @@ __Results__
 
 ```javascript
 {
-  "id": "e673f38989514ccda3bf0ffc82083f17",
-  "name": "Basic_Example",
-  "session": "ddecf123a6c14f89a8c40740fbc0e038",
-  "host": "admin-nvoisus.local",
-  "state": "INSTALLED"
+  "install_status": [ 100, 'install finished' ],
+  "cloud_id": 'voisus',
+  "scenario_id": 'e62acd5c62874f0aaf4dee7411436460',
+  "session_id": '114eea8da5014c6ebb468b0a0595b2cd',
+  "session_errors": [],
+  "install_state": 'INSTALLED',
+  "scenario_name": 'scenarioName',
+  "scenario_host": 'nvoisus.local'
 }
 ```
 
@@ -87,11 +96,14 @@ __Results__
 
 ```javascript
 {
-  "id": "e673f38989514ccda3bf0ffc82083f17",
-  "name": "Basic_Example",
-  "session": "ddecf123a6c14f89a8c40740fbc0e038",
-  "host": "admin-nvoisus.local",
-  "state": "INSTALLED"
+  "install_status": [ 1, 'starting install' ],
+  "cloud_id": 'voisus',
+  "scenario_id": null,
+  "session_id": null,
+  "session_errors": [],
+  "install_state": 'INSTALLING',
+  "scenario_name": null,
+  "scenario_host": null
 }
 ```
 
@@ -113,7 +125,14 @@ __Results__
 
 ```javascript
 {
-  "state": "UNINSTALLED"
+  "install_status": [ 100, 'uninstall finished' ],
+  "cloud_id": 'voisus',
+  "scenario_id": null,
+  "session_id": null,
+  "session_errors": [],
+  "install_state": 'UNINSTALLED',
+  "scenario_name": null,
+  "scenario_host": null }
 }
 ```
 
@@ -139,13 +158,11 @@ __Results__
 
 ---------------------------------------
 
-### getTemplates(scenarioId, callback)
+### getTemplates(callback)
 
 This function gets the scenario templates from the voisus server.
 
 __Arguments__
-
-* [scenarioId](#scenarioid-objscnid-string): `String`
 
 * callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
 
@@ -155,11 +172,19 @@ __Results__
 
 ```javascript
 [
-  {
-    "name": "Basic_Example",
-    "data_type": "template"
-  },
-  ...
+  'Army_Example',
+  'Basic_Example',
+  'Construct_Example',
+  'EmergencyMgmt_Example',
+  'HWPanel_Example',
+  'Intercom_Example',
+  'Maritime_Example',
+  'Office_Example',
+  'RadioBridge16',
+  'RadioBridge4',
+  'RadioBridge8',
+  'SeriousGame_Example',
+  'TOC_Example'
 ]
 ```
 

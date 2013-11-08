@@ -3,13 +3,14 @@
   "version": "0.2.5",
   "private": false,
   "scripts": {
-    "start": "node index.js",
+    "start": "mocha examples/automated-test.js -R spec --timeout 864000",
     "test": "mocha -R spec --timeout 15000"
   },
   "dependencies": {
-    "jsonify": "*",
-    "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
     "async": "~0.2.7",
+    "jsonify": "*",
+    "progress": "*",
+    "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
     "underscore": "~1.5.1"
   },
   "devDependencies": {
