@@ -15,10 +15,11 @@ var client = {
 
 describe('Voisus server automated tests: ', function () {
 
-  it('should run and automated performance test from a template', function(done) {
+  it('should run and automated performance test from a template with 10 clients', function(done) {
     // test variables
     var scn, ssn, radios, clients;
     var test_time = 30;
+    var test_name = 'automated_test_1';
     // create a hapi connection
     var hapi = nVoisus.createHapi(server.host);
     async.waterfall([
@@ -35,7 +36,7 @@ describe('Voisus server automated tests: ', function () {
           }
         }
         // create a scenario from the template
-        hapi.createScenarioFromTemplate('automated_test_1', template, cb);
+        hapi.createScenarioFromTemplate(test_name, template, cb);
       },
       function(result, cb) {
         // save the scenario and run it
@@ -66,7 +67,8 @@ describe('Voisus server automated tests: ', function () {
       },
       function(result, cb) {
         // create the clients object
-        clients = {
+        clients = [];
+        var c = {
           total_clients: 10,
           client_host: client.host_1,
           test_rx: true,
@@ -76,14 +78,15 @@ describe('Voisus server automated tests: ', function () {
         };
         for(var i in result) {
           if(result[i].name === 'Role_Ex1') {
-            clients.roleId = result[i].id;
+            c.roleId = result[i].id;
           }
         }
+        clients.push(c);
 
         // create the test object
         var test = {
           session: ssn,
-          name: 'automated_test_1',
+          name: test_name,
           duration: test_time,
           test_server: server.host
         };
@@ -101,13 +104,15 @@ describe('Voisus server automated tests: ', function () {
                 bar.update(result.items[i].progress);
                 if(bar.complete) {
                   clearInterval(timer);
-                  //hapi.deleteScenario(scn.scnId, cb);
                   cb(null);
                 }
               }
-            }       
+            }
           });
         }, 1000);
+      },
+      function(cb) {
+        cb(null);
       }
     ], function(err) {
       should.not.exist(err);
@@ -116,6 +121,7 @@ describe('Voisus server automated tests: ', function () {
   });
 
 });
+
 
 /*  test object
  *
@@ -169,17 +175,18 @@ var _createPerformanceTest = function(test, radios, clients) {
 var _createClients = function(clients) {
   var obj = [];
 
-  for(var i = 0; i < clients.total_clients; i++) {
-    var client = {
-      test_tx: false,
-      tone: false,
-      test_rx: clients.test_rx || true,
-      host: clients.client_host,
-      role: 'https://'+clients.host+'/api/scenarios/'+clients.scnId+'/roles/'+clients.roleId+'/',
-      randomize: clients.randomize || false
-    };
-
-    obj.push(client);
+  for(var i in clients) {
+    for(var j = 0; j < clients[i].total_clients; j++) {
+      var client = {
+        test_tx: false,
+        tone: false,
+        test_rx: clients[i].test_rx || true,
+        host: clients[i].client_host,
+        role: 'https://'+clients[i].host+'/api/scenarios/'+clients[i].scnId+'/roles/'+clients[i].roleId+'/',
+        randomize: clients[i].randomize || false
+      };
+      obj.push(client);
+    }
   }
 
   return obj;

@@ -26,7 +26,7 @@ __Returns__
 
 the following methods are called with the hapi object.
 
-example: 
+example:
 
 ```javascript
 var nVoisus = require('voisus');

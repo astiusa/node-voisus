@@ -2,6 +2,16 @@
 
 In order to get information about services, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server services. 
 
+example:
+
+```javascript
+var nVoisus = require('voisus');
+var hapi = nVoisus.createHapi('IPAddress');
+hapi."method"(args, function(err, result) {
+  ...
+});
+```
+
 ---------------------------------------
 
 ### createServices(callback)

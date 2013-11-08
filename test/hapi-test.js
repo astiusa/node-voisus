@@ -541,32 +541,6 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
-    //FIXME
-    it.skip('should post dis', function(done) {
-      var scn;
-      var data = {udp_port: 3005};
-      var h = nVoisus.createHapi(test.host);
-      async.waterfall([
-        function(cb) {
-          h.createScenario('postDis()', cb);
-        },
-        function(result, cb) {
-          scn = result;
-          scn.postDis(data, cb);
-        },
-        function(result, cb) {
-          console.log(result);
-          scn.getDis(cb);
-        },
-        function(result, cb) {
-          h.deleteScenario(scn.scnId, cb);
-        }
-      ], function(err) {
-        should.not.exist(err);
-        done();
-      });
-    });
-
     it('should del dis', function(done) {
       var scn;
       var h = nVoisus.createHapi(test.host);

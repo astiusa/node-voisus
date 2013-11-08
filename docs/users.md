@@ -2,11 +2,21 @@
 
 In order to get information about users, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server users.
 
+example:
+
+```javascript
+var nVoisus = require('voisus');
+var hapi = nVoisus.createHapi('IPAddress');
+hapi."method"(args, function(err, result) {
+  ...
+});
+```
+
 ---------------------------------------
 
 ### getUsers(callback)
 
-This function gets the current users of the voisus server.
+This function gets the users of the voisus server.
 
 __Arguments__
 
@@ -31,7 +41,7 @@ __Results__
 
 ### postUsers(user, callback)
 
-This function creates the users in the voisus server.
+This function creates a user.
 
 __Arguments__
 
@@ -54,7 +64,7 @@ __Results__
 {
   id: 'a159bb2cb9cc4a778866b07169d09b1b',
   user: 'voisusUser',
-  pass: '6a386a9550ed702e65eb73040f27ded9ed43254d6fa6258250485418657333878ca399e724567f58bdda6fcc195d011f565aa8dfe22c67ddaea6b56cddede7ec' }
+  pass: '6a386a9550ed702e65eb73040f27ded9ed43254d6fa6258250485418657333878ca399e724567f58bdda6fcc195d011f565aa8dfe22c67ddaea6b56cddede7ec'
 }
 ```
 
@@ -62,7 +72,7 @@ __Results__
 
 ### deleteUserByName(userName, callback)
 
-This function creates the users in the voisus server.
+This function deletes a user by name.
 
 __Arguments__
 
@@ -86,7 +96,7 @@ null
 
 ### deleteUserById(userId, callback)
 
-This function creates the users in the voisus server.
+This function deletes a user by id.
 
 __Arguments__
 

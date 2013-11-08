@@ -1,6 +1,16 @@
-## Scenarios
+# Scenarios
 
 In order to get information about scenarios, you must already have a hapi object (see [hapi][docs_hapi]). These methods are available to interact with the voisus server scenarios.
+
+example:
+
+```javascript
+var nVoisus = require('voisus');
+var hapi = nVoisus.createHapi('IPAddress');
+hapi."method"(args, function(err, result) {
+  ...
+});
+```
 
 ---------------------------------------
 
@@ -499,7 +509,6 @@ __Results__
     "crypto": null,
     "name": "Recon",
     "data_type": "nets",
-    "waveform": "https://162.209.98.219/api/scenarios/8b995cf8585c4ea49f4d3de0aa642a05/waveforms/b07a711fb2d348098d7a544b6b84bee2/",
     "frequency": 214050000,
     "satcom": null,
     "version": "v5.9.0-292-g875bb23c",
@@ -546,7 +555,6 @@ __Results__
   "crypto": null,
   "name": 'UNHAPI',
   "data_type": 'nets',
-  "waveform": null,
   "frequency": 0,
   "satcom": null,
   "version": 'v5.15.0-518-g53fb19f8',
