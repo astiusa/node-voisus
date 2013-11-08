@@ -1,6 +1,5 @@
 var async = require('async');
 var should = require('should');
-var progressBar = require('progress');
 var nVoisus = require('.././lib/node-voisus');
 
 // global vars
@@ -94,16 +93,12 @@ describe('Voisus server automated tests: ', function () {
         scn.runPerformanceTest(perf, cb);
       },
       function(result, cb) {
-        var bar = new progressBar('[:bar] :percent  elapsed: :elapsed', { total: test_time });
         var timer = setInterval(function() {
           scn.getPerformanceTestReports(function(err, result) {
             for(var i in result.items) {
-              if(result.items[i].progress > 0) {
-                bar.update(result.items[i].progress);
-                if(bar.complete) {
-                  clearInterval(timer);
-                  cb(null);
-                }
+              if(result.items[i].progress > .9) {
+                clearInterval(timer);
+                cb(null);
               }
             }
           });

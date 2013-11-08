@@ -9,7 +9,6 @@
   "dependencies": {
     "async": "~0.2.7",
     "jsonify": "*",
-    "progress": "*",
     "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
     "underscore": "~1.5.1"
   },
