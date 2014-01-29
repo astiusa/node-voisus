@@ -41,7 +41,7 @@ describe('Voisus HAPI: ', function () {
         function(result, cb) {
           should.exist(result);
           should.exist(result.product);
-          result.product.should.eql('Voisus Server International');
+          result.product.should.startWith('Voisus Server');
           should.exist(result.builddate);
           should.exist(result.os_version);
           should.exist(result.version);
@@ -115,7 +115,7 @@ describe('Voisus HAPI: ', function () {
         },
         function(result, cb) {
           should.exist(result);
-          result.should.eql('3');
+          result.should.be.within(3,4); // 3 for HearVoisus, 4 for Production
           cb(null);
         }
       ], function(err) {

@@ -4,13 +4,13 @@
   "private": false,
   "scripts": {
     "start": "mocha examples/automated-test.js -R spec --timeout 120000",
-    "test": "mocha -R spec --timeout 15000"
+    "test": "mocha -R spec --timeout 30000"
   },
   "dependencies": {
     "async": "~0.2.7",
     "jsonify": "*",
     "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
-    "underscore": "~1.5.1"
+    "underscore": "~1.5.2"
   },
   "devDependencies": {
     "mocha": "*",
