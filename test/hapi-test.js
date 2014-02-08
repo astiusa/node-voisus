@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "IPAddress"
+  host: "10.26.3.109"
 };
 
 describe('Voisus HAPI: ', function () {
