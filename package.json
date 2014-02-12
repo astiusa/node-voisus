@@ -24,7 +24,7 @@
     "test": "test"
   },
   "main": "./lib/node-voisus",
-  "description": "This module provides access to maintenance and oversight over the voisus client and server.  # Hapi - [Basic](#basic) - [Scenarios](#scenarios) - [Users](#users) - [Sessions](#sessions) - [Services](#services)",
+  "description": "This module provides access to maintenance and oversight over the voisus client and server.",
   "repository": {
     "type": "git",
     "url": "git://github.com/astilabs/node-voisus.git"

@@ -30,6 +30,22 @@ __Returns__
 
 ---------------------------------------
 
+### createScenarioFromId(scenarioId, callback)
+
+This function returns a scenario object. (see [Scenario Object](#scenario-object))
+
+__Arguments__
+
+* scenarioId: `String`
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Returns__
+
+* `Scenario Object` (see [Scenario Object](#scenario-object))
+
+---------------------------------------
+
 ### getScenarios(callback)
 
 This function gets the scenarios of the voisus server.
@@ -977,6 +993,150 @@ null
 ```
 
 ---------------------------------------
+
+### getWaveforms(callback)
+
+This function gets the waveforms of the scenario.
+
+__Arguments__
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Array`:
+
+```javascript
+[
+  {
+    "description": '',
+    "encoding": "PCM",
+    "rev": '4-bda1c0b4a7c6fe7d60f8c01a997ab0d6',
+    "bandwidth": 25000,
+    "data_type": 'waveforms',
+    "propagation": 'NONE',
+    "rate": 16000,
+    "version": 'v5.17.0-57-g936b8e71',
+    "power": 1.0,
+    "mode": 'INTERCOM',
+    "modkey": '',
+    "id": 'b679ac4a9ea24df5ae555035d0feea81',
+    "name": 'Waveform-1
+  },
+  ...
+]
+```
+
+---------------------------------------
+
+### putWaveforms(waveformId, waveformObj, callback)
+
+This function updates a fill.
+
+__Arguments__
+
+* waveformId: `String`
+
+```javascript
+"b679ac4a9ea24df5ae555035d0feea81"
+```
+
+* waveformObj: `JSON`
+
+```javascript
+{
+  "name": 'Waveform-2'
+}
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Array`:
+
+```javascript
+{
+  "description": '',
+  "encoding": "PCM",
+  "rev": '4-bda1c0b4a7c6fe7d60f8c01a997ab0d6',
+  "bandwidth": 25000,
+  "data_type": 'waveforms',
+  "propagation": 'NONE',
+  "rate": 16000,
+  "version": 'v5.17.0-57-g936b8e71',
+  "power": 1.0,
+  "mode": 'INTERCOM',
+  "modkey": '',
+  "id": 'b679ac4a9ea24df5ae555035d0feea81',
+  "name": 'Waveform-2
+}
+```
+
+---------------------------------------
+
+### postWaveforms(waveformObj, callback)
+
+This function creates a fill.
+
+__Arguments__
+
+* waveformObj: `JSON`
+
+```javascript
+{
+  "name": 'HAPI'
+}
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Array`:
+
+```javascript
+{
+  "description": '',
+  "encoding": "PCM",
+  "rev": '4-bda1c0b4a7c6fe7d60f8c01a997ab0d6',
+  "bandwidth": 25000,
+  "data_type": 'waveforms',
+  "propagation": 'NONE',
+  "rate": 16000,
+  "version": 'v5.17.0-57-g936b8e71',
+  "power": 1.0,
+  "mode": 'INTERCOM',
+  "modkey": '',
+  "id": 'b679ac4a9ea24df5ae555035d0feea81',
+  "name": 'HAPI'
+}
+```
+
+---------------------------------------
+
+### delWaveforms(waveformId, callback)
+
+This function deletes a fill.
+
+__Arguments__
+
+* waveformId: `String`
+
+```javascript
+"b679ac4a9ea24df5ae555035d0feea81"
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Null`:
+
+```javascript
+null
+```
+
 
 for more documentation about the Voisus Server API see [support].
 

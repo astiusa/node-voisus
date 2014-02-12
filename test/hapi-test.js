@@ -919,6 +919,110 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
+
+    it('should get waveforms', function(done) {
+      var scn, waveformId;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('getWaveforms()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postWaveforms(data, cb);
+        },
+        function(result, cb) {
+          waveformId = result.id;
+          scn.getWaveforms(cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result[0].name.should.eql(data.name);
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should put waveforms', function(done) {
+      var scn, waveformId;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('putWaveforms()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postWaveforms(data, cb);
+        },
+        function(result, cb) {
+          waveformId = result.id;
+          data.name = 'UNHAPI';
+          scn.putWaveforms(waveformId, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql('UNHAPI');
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post waveforms', function(done) {
+      var scn;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('postWaveforms()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postWaveforms(data, cb);
+        },
+        function(result, cb) {
+          result.name.should.eql(data.name);
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should del waveforms', function(done) {
+      var scn, waveformId;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('delWaveforms()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postWaveforms(data, cb);
+        },
+        function(result, cb) {
+          waveformId = result.id;
+          scn.delWaveforms(waveformId, cb);
+        },
+        function(result, cb) {
+          should.not.exist(result);
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
   });
 
   describe('Performance Tool: ', function() {
