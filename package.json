@@ -13,7 +13,8 @@
     "underscore": "~1.5.2",
     "ws": "~0.4.31",
     "eventemitter2": "~0.4.13",
-    "socket.io-client": "~0.9.16"
+    "socket.io-client": "~0.9.16",
+    "bunyan": "~0.22.1"
   },
   "devDependencies": {
     "mocha": "*",
