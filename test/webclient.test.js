@@ -3,12 +3,40 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "162.242.237.235"
+  host: "10.26.3.109"
 };
 
 describe('Voisus WebClient: ', function () {
 
   var vc;
+  var scn;
+  var h
+  
+  before(function(done) {
+    h = nVoisus.createHapi(test.host);
+    async.waterfall([
+      function(cb) {
+        h.getTemplates(cb);
+      },
+      function(result, cb) {
+        h.createScenarioFromTemplate('webclient test scenario', result[1], cb);
+      },
+      function(result, cb) {
+        scn = result;
+        h.runScenario(scn.scnId, cb);
+      },
+      function(result, cb) {
+        console.log('Waiting 20 seconds for install to be 100% complete');
+        setTimeout(cb, 20000);
+      }
+    ], function(err) {
+      done();
+    });
+  });
+  
+  after(function(done) {
+    h.deleteScenario(scn.scnId, done);
+  });
   
   afterEach(function(done) {
     if (vc) {
