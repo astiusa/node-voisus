@@ -867,6 +867,97 @@ __Results__
 
 ---------------------------------------
 
+### getRolesCommpanel(roleId, callback)
+
+This function gets the comm panel template of the role.
+
+__Arguments__
+
+* roleId: `String`
+
+```javascript
+"59868c1b66ac497fb081cad598426c31"
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Array`:
+
+```javascript
+[
+  {
+    "data_type": 'commpanel_tmpl',
+    "rev": '1-68783a01b8382f0eb7a1421d06b5c9b6',
+    "name": 'HAPI',
+    "channels": [
+      {
+        "tx_select": false,
+        "balance": 0,
+        "rxtx_lock": false,
+        "rx_select": false,
+        "ptt": 1
+      }
+    ],
+    "version": 'v5.17.0-57-g936b8e71',
+    "id": 'cdeb9b606a44443998ca8d13b53c299b',
+    "description": ''
+  },
+  ...
+]
+```
+
+---------------------------------------
+
+### postRolesCommpanel(roleId, commObj, rcallback)
+
+This function creates a comm panel template in the role.
+
+__Arguments__
+
+* roleId: `String`
+
+```javascript
+"59868c1b66ac497fb081cad598426c31"
+```
+
+* commObj: `JSON`
+
+```javascript
+{
+  "name": 'HAPI'
+}
+```
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `JSON`:
+
+```javascript
+{
+  "data_type": 'commpanel_tmpl',
+  "rev": '1-68783a01b8382f0eb7a1421d06b5c9b6',
+  "name": 'HAPI',
+  "channels": [
+    {
+      "tx_select": false,
+      "balance": 0,
+      "rxtx_lock": false,
+      "rx_select": false,
+      "ptt": 1
+    }
+  ],
+  "version": 'v5.17.0-57-g936b8e71',
+  "id": 'cdeb9b606a44443998ca8d13b53c299b',
+  "description": ''
+}
+```
+
+---------------------------------------
+
 ### getFills(callback)
 
 This function gets the fills of the scenario.
@@ -1069,7 +1160,7 @@ __Results__
   "mode": 'INTERCOM',
   "modkey": '',
   "id": 'b679ac4a9ea24df5ae555035d0feea81',
-  "name": 'Waveform-2
+  "name": 'Waveform-2'
 }
 ```
 

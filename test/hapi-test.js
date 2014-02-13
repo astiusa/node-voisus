@@ -817,6 +817,63 @@ describe('Voisus HAPI: ', function () {
       });
     });
 
+    it('should get roles comm panel template', function(done) {
+      var scn, roleId;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('getRolesCommpanel()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postRoles(data, cb);
+        },
+        function(result, cb) {
+          roleId = result.id;
+          scn.postRolesCommpanel(roleId, data, cb);
+        },
+        function(result, cb) {
+          scn.getRolesCommpanel(roleId, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result[0].name.should.eql(data.name);
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
+    it('should post roles comm panel template', function(done) {
+      var scn, roleId;
+      var data = {name: 'HAPI'};
+      var h = nVoisus.createHapi(test.host);
+      async.waterfall([
+        function(cb) {
+          h.createScenario('postRolesCommpanel()', cb);
+        },
+        function(result, cb) {
+          scn = result;
+          scn.postRoles(data, cb);
+        },
+        function(result, cb) {
+          roleId = result.id;
+          scn.postRolesCommpanel(roleId, data, cb);
+        },
+        function(result, cb) {
+          should.exist(result);
+          result.name.should.eql(data.name);
+          h.deleteScenario(scn.scnId, cb);
+        }
+      ], function(err) {
+        should.not.exist(err);
+        done();
+      });
+    });
+
     it('should get fills', function(done) {
       var scn, fillId;
       var data = {name: 'HAPI'};

@@ -10,7 +10,7 @@ describe('Voisus WebClient: ', function () {
 
   var vc;
   var scn;
-  var h
+  var h;
   
   before(function(done) {
     h = nVoisus.createHapi(test.host);
@@ -26,8 +26,8 @@ describe('Voisus WebClient: ', function () {
         h.runScenario(scn.scnId, cb);
       },
       function(result, cb) {
-        console.log('Waiting 20 seconds for install to be 100% complete');
-        setTimeout(cb, 20000);
+        console.log('Waiting 10 seconds for install to be 100% complete');
+        setTimeout(cb, 10000);
       }
     ], function(err) {
       done();
