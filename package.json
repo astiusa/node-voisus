@@ -1,9 +1,8 @@
 {
   "name": "voisus",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": false,
   "scripts": {
-    "start": "mocha examples/automated-test.js -R spec --timeout 120000",
     "test": "mocha -R spec --timeout 30000"
   },
   "dependencies": {

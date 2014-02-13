@@ -1,6 +1,7 @@
 var async = require('async');
 var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
+var _ = require('underscore');
 
 var test = {
   host: process.env.SERVER || "10.26.3.109"
@@ -124,7 +125,7 @@ describe('Voisus WebClient: ', function () {
         vc.connect('testName');
       }
 
-      vc = nVoisus.createWebClient({host: test.host, debug: true});
+      vc = nVoisus.createWebClient({host: test.host, debug: false});
       vc.on(vc.EVENTS.ready, connect);
       vc.on(vc.EVENTS.roles, function(roles) {
         done();
@@ -137,7 +138,6 @@ describe('Voisus WebClient: ', function () {
       roles.length.should.eql(2);
       should.exist(roles[0].roleid);
       should.exist(roles[0].rolename);
-      roles[0].rolename.should.eql('Role_Ex1');
     });
   });
 
@@ -169,6 +169,70 @@ describe('Voisus WebClient: ', function () {
         role.should.eql(roles[0]);
         done();
       });
+    });
+  });
+
+  describe('api.getRadios', function() {
+    var vc;
+    beforeEach(function(done) {
+
+      var connect = function() {
+        vc.connect('testName');
+      }
+
+      vc = nVoisus.createWebClient({host: test.host, debug: false});
+      vc.on(vc.EVENTS.ready, connect);
+      vc.on(vc.EVENTS.roles, function(roles) {
+        _.each(roles, function(role) {
+          if (role.rolename === 'Role_Ex1') {
+            vc.setRole(role);
+            vc.removeAllListeners(vc.EVENTS.roles);
+          }
+        });
+      });
+      var rad_count = 0;
+      vc.on(vc.EVENTS.radio, function() {
+        if(_.size(vc.getRadios()) === 4) {
+          vc.removeAllListeners(vc.EVENTS.radio);
+          return done();
+        }
+      });
+    });
+
+    it('should return an object of radios', function() {
+      var radios = vc.getRadios();
+      should.exist(radios);
+      _.size(radios).should.eql(4);
+    });
+  });
+
+  describe.skip('api.getCommpanel', function() {
+    var vc;
+    beforeEach(function(done) {
+
+      var connect = function() {
+        vc.connect('testName');
+      }
+
+      vc = nVoisus.createWebClient({host: test.host, debug: false});
+      vc.on(vc.EVENTS.ready, connect);
+      vc.on(vc.EVENTS.roles, function(roles) {
+        vc.setRole(roles[0]);
+      });
+      var rad_count = 0;
+      vc.on(vc.EVENTS.commpanel, function() {
+        console.log(vc.getCommpanel());
+        if(vc.getCommpanel().radios.length===4) {
+          vc.removeAllListeners(vc.EVENTS.commpanel);
+          return done();
+        }
+      });
+    });
+
+    it('should return the commpanel object', function() {
+      var cp = vc.getCommpanel();
+      should.exist(cp);
+      _.size(cp.radios).should.eql(4);
     });
   });
 });
