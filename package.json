@@ -10,6 +10,7 @@
     "async": "~0.2.7",
     "jsonify": "*",
     "restler": "git://github.com/rosskukulinski/restler.git#ignore-self-sign",
+    "asti": "git://github.com/astilabs/node-asti.git",
     "underscore": "~1.5.2",
     "ws": "~0.4.31",
     "eventemitter2": "~0.4.13",

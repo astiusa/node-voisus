@@ -3,7 +3,7 @@ var should = require('should');
 var nVoisus = require('.././lib/node-voisus');
 
 var test = {
-  host: "10.26.3.109"
+  host: process.env.SERVER || "10.26.3.109"
 };
 
 describe('Voisus HAPI: ', function () {
@@ -1147,7 +1147,7 @@ describe('Voisus HAPI: ', function () {
         done();
       });
     });
-  
+
     it('should get ace-ae-hw', function(done) {
       var srvc;
       var h = nVoisus.createHapi(test.host);
