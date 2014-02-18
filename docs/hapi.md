@@ -35,6 +35,41 @@ hapi."method"(args, function(err, result) {
   ...
 });
 ```
+---------------------------------------
+
+### reboot(callback)
+
+This function reboots the voisus server.
+
+__Arguments__
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Null`:
+
+```javascript
+null
+```
+
+---------------------------------------
+
+### shutdown(callback)
+
+This function shutsdown the voisus server. __Use with caution__
+
+__Arguments__
+
+* callback(err, results) - A callback which is called after the function has finished, or an error has occurred.
+
+__Results__
+
+* `Null`:
+
+```javascript
+null
+```
 
 ---------------------------------------
 
